@@ -3,13 +3,11 @@ package vista;
 import javax.swing.*;
 import java.awt.*;
 
-public class FrmLineas extends  JDialog{
-
+public class FrmOperacionesTipo3 extends JDialog{
     private JPanel pnlPrincipal;
-    private JButton btnAsignarSocio;
-    private JButton btnAprobar;
+    private JButton btnPrestamos;
 
-    public FrmLineas(Window owner, String titulo)
+    public FrmOperacionesTipo3(Window owner, String titulo)
     {
         super(owner, titulo);
 
@@ -18,8 +16,7 @@ public class FrmLineas extends  JDialog{
         this.setModal(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        btnAsignarSocio.setPreferredSize(new Dimension(230,40));
-        btnAprobar.setPreferredSize(new Dimension(230,40));
+        btnPrestamos.setPreferredSize(new Dimension(230,40));
         //asociarEventos();
     }
 }

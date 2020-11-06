@@ -34,6 +34,7 @@ public class FrmPrincipal extends JFrame {
         btnConsultas.setPreferredSize(new Dimension(230,40));
         btnLineas.setPreferredSize(new Dimension(230,40));
         btnOperaciones.setPreferredSize(new Dimension(230,40));
+
         asociarEventos();
 
         this.self = this;
@@ -60,8 +61,35 @@ public class FrmPrincipal extends JFrame {
         btnOperaciones.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                FrmOperaciones frame = new FrmOperaciones(self, "Sistema de Gestion de Riesgo");
-                frame.setVisible(true);
+
+                String cadena = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
+
+                /*CUANDO SE DEFINAN LOS MODELOS, SE TIENE QUE MODIFICAR LA LOGICA PARA QUE RECORRA TODOS
+                //LOS SOCIOS CARGADOS Y QUE VAYA COMPARANDO CADA UNO CON EL INGRESADO, EN CASO DE NO ENCONTRARLO,
+                ANULAR EL INGRESO AL MENU OPERACIONES*/
+                if(cadena.equals("1111111"))
+                {
+                    FrmOperacionesTipo1 frame = new FrmOperacionesTipo1(self, "Sistema de Gestion de Riesgo");
+                    frame.setVisible(true);
+                }
+                else if(cadena.equals("2222222"))
+                {
+                    FrmOperacionesTipo2 frame = new FrmOperacionesTipo2(self, "Sistema de Gestion de Riesgo");
+                    frame.setVisible(true);
+                }
+                else if(cadena.equals("3333333"))
+                {
+                    FrmOperacionesTipo3 frame = new FrmOperacionesTipo3(self, "Sistema de Gestion de Riesgo");
+                    frame.setVisible(true);
+                }
+                else if(cadena.equals("12345678"))
+                {
+                    FrmOperacionesProtectores frame = new FrmOperacionesProtectores(self, "Sistema de Gestion de Riesgo");
+                    frame.setVisible(true);
+                }
+                else {
+                    JOptionPane.showMessageDialog(null,"No se encontró el socio ingresado");
+                }
             }
         });
 
