@@ -13,7 +13,7 @@
           <background color="-13404788"/>
           <preferredSize width="-1" height="50"/>
         </properties>
-        <border type="none"/>
+        <border type="etched"/>
         <children>
           <component id="95777" class="javax.swing.JLabel">
             <constraints border-constraint="Center"/>

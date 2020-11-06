@@ -48,11 +48,34 @@ public class FrmPrincipal extends JFrame {
                 frame.setVisible(true);
             }
         });
+
+        btnLineas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                FrmLineas frame = new FrmLineas(self, "Sistema de Gestion de Riesgo");
+                frame.setVisible(true);
+            }
+        });
+
+        btnOperaciones.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                FrmOperaciones frame = new FrmOperaciones(self, "Sistema de Gestion de Riesgo");
+                frame.setVisible(true);
+            }
+        });
+
+        btnConsultas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                FrmConsultas frame = new FrmConsultas(self, "Sistema de Gestion de Riesgo");
+                frame.setVisible(true);
+            }
+        });
     }
 
     public static void main(String[] args) {
         FrmPrincipal frame = new FrmPrincipal("Sistema de Gestion de Riesgo");
-
 
         frame.setVisible(true);
     }
