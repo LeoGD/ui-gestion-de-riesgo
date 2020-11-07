@@ -70,7 +70,67 @@
                 </constraints>
                 <properties/>
                 <border type="none"/>
-                <children/>
+                <children>
+                  <grid id="a89cc" class="javax.swing.JDesktopPane" binding="dpConsulta2" layout-manager="CardLayout" hgap="0" vgap="0">
+                    <constraints>
+                      <card name="Card2"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children/>
+                  </grid>
+                </children>
+              </grid>
+              <grid id="beb47" layout-manager="CardLayout" hgap="0" vgap="0">
+                <constraints>
+                  <tabbedpane title="Consulta 3"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <grid id="8624a" class="javax.swing.JDesktopPane" binding="dpConsulta3" layout-manager="CardLayout" hgap="0" vgap="0">
+                    <constraints>
+                      <card name="Card3"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children/>
+                  </grid>
+                </children>
+              </grid>
+              <grid id="6cf14" layout-manager="CardLayout" hgap="0" vgap="0">
+                <constraints>
+                  <tabbedpane title="Consulta 4"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <grid id="9747b" class="javax.swing.JDesktopPane" binding="dpConsulta4" layout-manager="CardLayout" hgap="0" vgap="0">
+                    <constraints>
+                      <card name="Card4"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children/>
+                  </grid>
+                </children>
+              </grid>
+              <grid id="12d78" layout-manager="CardLayout" hgap="0" vgap="0">
+                <constraints>
+                  <tabbedpane title="Consulta 5"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <grid id="a045" class="javax.swing.JDesktopPane" binding="dpConsulta5" layout-manager="CardLayout" hgap="0" vgap="0">
+                    <constraints>
+                      <card name="Card5"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children/>
+                  </grid>
+                </children>
               </grid>
             </children>
           </tabbedpane>

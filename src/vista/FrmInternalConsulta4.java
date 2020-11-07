@@ -1,13 +1,12 @@
 package vista;
 
 import javax.swing.*;
-import java.awt.*;
 
-public class FrmInternaalConsulta1 extends JInternalFrame{
+public class FrmInternalConsulta4 extends JInternalFrame{
 
     private JPanel pnlPrincipal;
 
-    public FrmInternaalConsulta1(String titulo)
+    public FrmInternalConsulta4(String titulo)
     {
         super(titulo);
         setContentPane(pnlPrincipal);
