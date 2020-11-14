@@ -12,9 +12,6 @@ public class LineaDeCredito {
     public LineaDeCredito() {
     }
 
-    /**
-     * 
-     */
     private Integer lineaCreditoID;
     private float monto;
     private Date fechaVigencia;
@@ -22,19 +19,12 @@ public class LineaDeCredito {
     private List <Operacion> tipoOperaciones;
     private float utilizadoDeLinea;
 
-
-    /**
-     * 
-     */
-    public void getlineaCreditoID() {
-        // TODO implement here
+    public Integer getLineaCreditoID() {
+        return lineaCreditoID;
     }
 
-    /**
-     * 
-     */
-    public void getutilizadoDeLinea() {
-        // TODO implement here
+    public void setLineaCreditoID(Integer lineaCreditoID) {
+        this.lineaCreditoID = lineaCreditoID;
     }
 
     /**

@@ -1,7 +1,13 @@
 package vista;
 
+import modelo.Socios;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import static vista.FrmPrincipal.socios;
 
 public class FrmLineas extends  JDialog{
 
@@ -20,6 +26,21 @@ public class FrmLineas extends  JDialog{
         setLocationRelativeTo(null);
         btnAsignarSocio.setPreferredSize(new Dimension(230,40));
         btnAprobar.setPreferredSize(new Dimension(230,40));
-        //asociarEventos();
+        asociarEventos();
+    }
+
+    private void asociarEventos(){
+        btnAsignarSocio.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String cadena = JOptionPane.showInputDialog(null, "Ingrese el CUIT del socio: ");
+
+                for(Socios item : socios){
+                    if(cadena.equals(item.getCuit())){
+
+                    }
+                }
+            }
+        });
     }
 }

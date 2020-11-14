@@ -1,5 +1,7 @@
 package vista;
 
+import modelo.Socios;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -31,6 +33,7 @@ public class FrmSocios extends JDialog{
         asociarEventos();
 
         this.self = this;
+
     }
 
     private void asociarEventos()
@@ -40,6 +43,17 @@ public class FrmSocios extends JDialog{
             public void actionPerformed(ActionEvent e) {
                 FrmCargarSocios frame = new FrmCargarSocios(self, "Sistema de Gestion de Riesgo");
                 frame.setVisible(true);
+            }
+        });
+
+        btnCargarAcc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                Socios socio = new Socios();
+
+                JOptionPane.showMessageDialog(null,socio.getRazonSocial());
+
             }
         });
     }

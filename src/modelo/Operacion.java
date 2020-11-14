@@ -20,7 +20,7 @@ public class Operacion {
     private TipoOperacion tipoOperacion;
     private NombreOperacion nombreOperacion;
     private EstadoOperacion estadoOperacion;
-    private Integer porcentajeComision;
+    private float porcentajeComision;
     private EstadoComision estadoComision;
     private Certificados certificadoGarantia;
     private List<String> operaciones;
