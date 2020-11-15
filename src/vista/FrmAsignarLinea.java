@@ -23,7 +23,7 @@ public class FrmAsignarLinea extends JDialog{
         //this.self = this;
     }
 
-    private asociarEventos(){
+    private void asociarEventos(){
 
     }
 }

@@ -9,14 +9,15 @@ public class Certificados {
     /**
      * Default constructor
      */
-    public Certificados() {
+    public Certificados(Integer numCertificado) {
+        this.numCertificado = numCertificado;
     }
 
     /**
      * 
      */
     private Integer numCertificado;
-    private Socios socio;
+    //private Socios socio;
 
-    public Operacion Genera;
+    //public Operacion Genera;
 }

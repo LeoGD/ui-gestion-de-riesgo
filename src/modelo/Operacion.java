@@ -10,7 +10,22 @@ public class Operacion {
     /**
      * Default constructor
      */
-    public Operacion() {
+    public Operacion(Integer operacionID, TipoOperacion tipoOperacion, NombreOperacion nombreOperacion,
+                     EstadoOperacion estadoOperacion, float porcentajeComision, EstadoComision estadoComision,
+                     Certificados certificadoGarantia, Integer importeTotal1, Integer importeUtilizado2,
+                     Integer cuotasImpagas3, float TasaDescuento) {
+
+        this.operacionID = operacionID;
+        this.tipoOperacion = tipoOperacion;
+        this.nombreOperacion = nombreOperacion;
+        this.estadoOperacion = estadoOperacion;
+        this.porcentajeComision = porcentajeComision;
+        this.estadoComision = estadoComision;
+        this.certificadoGarantia = certificadoGarantia;
+        this.importeTotal1 = importeTotal1;
+        this.importeUtilizado2 = importeUtilizado2;
+        this.cuotasImpagas3 = cuotasImpagas3;
+        this.TasaDescuento = TasaDescuento;
     }
 
     /**
@@ -23,9 +38,9 @@ public class Operacion {
     private float porcentajeComision;
     private EstadoComision estadoComision;
     private Certificados certificadoGarantia;
-    private List<String> operaciones;
-    private float importeTotal1;
-    private float importeUtilizado2;
+    //List<String> operaciones;
+    private Integer importeTotal1;
+    private Integer importeUtilizado2;
     private Integer cuotasImpagas3;
     private float TasaDescuento;
 

@@ -19,7 +19,12 @@ public class FrmPrincipal extends JFrame {
     private JButton btnLineas;
     private JPanel pnlTop;
     public static final List<Socios> socios = new ArrayList<Socios>();
-    public static final List<LineaDeCredito> lineas = new ArrayList<LineaDeCredito>();
+    public static final List<LineaDeCredito> lineas1 = new ArrayList<LineaDeCredito>();
+    public static final List<LineaDeCredito> lineas2 = new ArrayList<LineaDeCredito>();
+    public static final List<LineaDeCredito> lineas3 = new ArrayList<LineaDeCredito>();
+    public static final List<Operacion> operaciones = new ArrayList<Operacion>();
+    public static final List<Accionista> accionistas = new ArrayList<Accionista>();
+    public static final List<Documento> documentos = new ArrayList<>();
 
     private FrmPrincipal self;
 
@@ -129,43 +134,37 @@ public class FrmPrincipal extends JFrame {
 
         FrmPrincipal frame = new FrmPrincipal("Sistema de Gestion de Riesgo");
 
-        lineas.add(
-                0001,
-                20000,
-                "16/08/2021",
-                "Aprobado",
-                new Operacion({
-                        0001,
-                        TipoOperacion.UNO,
-                        new NombreOperacion(), })
-        }, 0.00);
-        lineas.add(0002,25000,"16/08/2021","Aprobado",  , 0.00);
-        lineas.add(
-                0003,
-                50000,
-                "16/08/2021",
-                "Aprobado",
-                new Operacion(0001, TipoOperacion.TRES, NombreOperacion.TARJETA_DE_CREDITO, EstadoOperacion.INGRESADO, 0.15, EstadoComision.Calculada, null, 0, 0.05),
-                0.00);
+        operaciones.add(new Operacion(0001, TipoOperacion.UNO, NombreOperacion.CHEQUES_PROPIOS, EstadoOperacion.INGRESADO,
+                0.15f, EstadoComision.Calculada, new Certificados(0001), 0, 0, 0, 0.05f));
+        operaciones.add(new Operacion(0002, TipoOperacion.UNO, NombreOperacion.CHEQUES_DE_TERCEROS, EstadoOperacion.INGRESADO,
+                0.13f, EstadoComision.Calculada, new Certificados(0002), 0, 0, 0, 0.1f));
+        operaciones.add(new Operacion(0003, TipoOperacion.UNO, NombreOperacion.PAGARÉ_BURSATIL, EstadoOperacion.INGRESADO,
+                0.2f, EstadoComision.Calculada, new Certificados(0003), 0, 0, 0, 0.05f));
+        operaciones.add(new Operacion(0004, TipoOperacion.DOS, NombreOperacion.CUENTAS_CORRIENTES_COMERCIALES, EstadoOperacion.INGRESADO,
+                0.05f, EstadoComision.Calculada, new Certificados(0003), 0, 0, 0, 0.05f));
+        operaciones.add(new Operacion(0005, TipoOperacion.DOS, NombreOperacion.TARJETA_DE_CREDITO, EstadoOperacion.INGRESADO,
+                0.07f, EstadoComision.Calculada, new Certificados(0003), 0, 0, 0, 0.05f));
+        operaciones.add(new Operacion(0006, TipoOperacion.TRES, NombreOperacion.PRÉSTAMOS, EstadoOperacion.INGRESADO,
+                0.09f, EstadoComision.Calculada, new Certificados(0003), 0, 0, 0, 0.05f));
+
+        socios.add(new Socios());
+
+        lineas1.add(new LineaDeCredito(0001, 20000, "16/08/2021",
+                "Aprobada", operaciones.get(0), 0));
+        lineas1.add(new LineaDeCredito(0002, 42000, "16/08/2021",
+                "Aprobada", operaciones.get(1), 0));
+        lineas1.add(new LineaDeCredito(0003, 37000, "16/08/2021",
+                "Aprobada", operaciones.get(2), 0));
+
+        lineas2.add(new LineaDeCredito(0001, 60000, "16/08/2021",
+                "Aprobada", operaciones.get(3), 0));
+        lineas2.add(new LineaDeCredito(0002, 85000, "16/08/2021",
+                "Aprobada", operaciones.get(4), 0));
+
+        lineas3.add(new LineaDeCredito(0001, 40000, "16/08/2021",
+                "Aprobada", operaciones.get(5), 0));
+
         frame.setVisible(true);
     }
 }
-/*
-    private Integer lineaCreditoID;
-    private float monto;
-    private Date fechaVigencia;
-    private String estado;
-    private List <Operacion> tipoOperaciones;
-        private Integer operacionID;
-        private TipoOperacion tipoOperacion;
-        private NombreOperacion nombreOperacion;
-        private EstadoOperacion estadoOperacion;
-        private Integer porcentajeComision;
-        private EstadoComision estadoComision;
-        private Certificados certificadoGarantia;
-        private float importeTotal1;
-        private float importeUtilizado2;
-        private Integer cuotasImpagas3;
-        private float TasaDescuento;
-    private float utilizadoDeLinea;
-     */
+

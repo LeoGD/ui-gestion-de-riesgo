@@ -13,7 +13,6 @@ public class Socios {
     }
 
     private Integer socioID;
-    private TipoSocio tipoSocio;
     private EstadoSocio estado;
     private Integer cuit;
     private String razonSocial;
@@ -24,6 +23,8 @@ public class Socios {
     private Integer telefono;
     private String mail;
     private LineaDeCredito linea;
+    private Accionista accionistas;
+    private Documento documentos;
 
     public LineaDeCredito getLinea() {
         return linea;
@@ -33,7 +34,13 @@ public class Socios {
         this.linea = linea;
     }
 
+    public Accionista getAccionistas() { return accionistas; }
 
+    public void setAccionistas(Accionista accionistas) { this.accionistas = accionistas; }
+
+    public Documento getDocumentos() { return documentos; }
+
+    public void setDocumentos(Documento documentos) { this.documentos = documentos; }
 
     public Integer getSocioID() {
         return socioID;
@@ -41,14 +48,6 @@ public class Socios {
 
     public void setSocioID(Integer socioID) {
         this.socioID = socioID;
-    }
-
-    public TipoSocio getTipoSocio() {
-        return tipoSocio;
-    }
-
-    public void setTipoSocio(TipoSocio tipoSocio) {
-        this.tipoSocio = tipoSocio;
     }
 
     public EstadoSocio getEstado() {

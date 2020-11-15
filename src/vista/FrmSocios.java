@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static vista.FrmCargarSocios.sociosAlternos;
+
 public class FrmSocios extends JDialog{
 
     private JPanel pnlPrincipal;
@@ -33,7 +35,6 @@ public class FrmSocios extends JDialog{
         asociarEventos();
 
         this.self = this;
-
     }
 
     private void asociarEventos()
@@ -49,11 +50,30 @@ public class FrmSocios extends JDialog{
         btnCargarAcc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String cadena = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
 
-                Socios socio = new Socios();
+                for(Socios item : sociosAlternos){
+                    if(cadena.equals(item.getCuit().toString()))
+                    {
+                        FrmCargarAccionistas frame = new FrmCargarAccionistas(self, "Sistema de Gestion de Riesgo");
+                        frame.setVisible(true);
+                    }
+                }
+            }
+        });
 
-                JOptionPane.showMessageDialog(null,socio.getRazonSocial());
+        btnAltaDoc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String cadena = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
 
+                for(Socios item : sociosAlternos){
+                    if(cadena.equals(item.getCuit().toString()))
+                    {
+                        FrmCargarDocumentos frame = new FrmCargarDocumentos(self, "Sistema de Gestion de Riesgo");
+                        frame.setVisible(true);
+                    }
+                }
             }
         });
     }

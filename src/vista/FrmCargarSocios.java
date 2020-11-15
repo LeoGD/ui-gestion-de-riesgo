@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import static vista.FrmPrincipal.socios;
 
@@ -26,6 +27,7 @@ public class FrmCargarSocios extends JDialog{
     private JTextField tbCorreo;
     private JTextField tbFecha;
     private JComboBox cbEstadoSocio;
+    public static final ArrayList<Socios> sociosAlternos = new ArrayList<Socios>();
 
     public FrmCargarSocios(Window owner, String titulo)
     {
@@ -39,8 +41,6 @@ public class FrmCargarSocios extends JDialog{
         asociarEventos();
 
         //this.self = this;
-
-
     }
 
     private void asociarEventos()
@@ -68,7 +68,7 @@ public class FrmCargarSocios extends JDialog{
                     item.setTelefono(Integer.parseInt(tbTelefono.getText()));
                     item.setMail(tbCorreo.getText());
 
-                    socios.add(item);
+                    sociosAlternos.add(item);
                 }
 
                 JOptionPane.showMessageDialog(null, "Se dio de alta exitosamente el socio");

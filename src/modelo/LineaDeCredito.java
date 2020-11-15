@@ -9,15 +9,22 @@ public class LineaDeCredito {
     /**
      * Default constructor
      */
-    public LineaDeCredito() {
+    public LineaDeCredito(Integer lineaCreditoID, Integer monto, String fechaVigencia, String estado, Operacion tipoOperaciones,
+                          Integer utilizadoDeLinea) {
+        this.lineaCreditoID = lineaCreditoID;
+        this.monto = monto;
+        this.fechaVigencia = fechaVigencia;
+        this.estado = estado;
+        this.tipoOperaciones = tipoOperaciones;
+        this.utilizadoDeLinea = utilizadoDeLinea;
     }
 
     private Integer lineaCreditoID;
-    private float monto;
-    private Date fechaVigencia;
+    private Integer monto;
+    private String fechaVigencia;
     private String estado;
-    private List <Operacion> tipoOperaciones;
-    private float utilizadoDeLinea;
+    private Operacion tipoOperaciones;
+    private Integer utilizadoDeLinea;
 
     public Integer getLineaCreditoID() {
         return lineaCreditoID;
