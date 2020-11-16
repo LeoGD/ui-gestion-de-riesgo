@@ -1,9 +1,6 @@
 package vista;
 
-import modelo.EstadoSocio;
-import modelo.LineaDeCredito;
-import modelo.Socios;
-import modelo.TipoOperacion;
+import modelo.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,7 +39,7 @@ public class FrmLineas extends  JDialog{
                 String cadenaLineas = JOptionPane.showInputDialog(null, "Ingrese el CUIT del socio: ");
 
                 for(Socios item : socios){
-                    if(cadenaLineas.equals(item.getCuit().toString())){
+                    if(Long.parseLong(cadenaLineas) == item.getCuit()){
                         if(item.getEstado() == EstadoSocio.SOCIO_PLENO_PARTICIPE){
 
                             String tipolinea = JOptionPane.showInputDialog(null, "Seleccione el tipo de linea a asignarse (UNO,DOS,TRES): ");
@@ -51,16 +48,22 @@ public class FrmLineas extends  JDialog{
                                 item.setLinea(lineas1);
 
                                 socios.add(item);
+
+                                JOptionPane.showMessageDialog(null, "Se asigno con exito el tipo de linea.\nLas operaciones asignadas son las siguientes:\n- " + NombreOperacion.CHEQUES_PROPIOS + "\n- " + NombreOperacion.CHEQUES_DE_TERCEROS + "\n- " + NombreOperacion.PAGARÉ_BURSATIL);
                             }
                             else if(tipolinea.equals(TipoOperacion.DOS.toString())){
                                 item.setLinea(lineas2);
 
                                 socios.add(item);
+
+                                JOptionPane.showMessageDialog(null, "Se asigno con exito el tipo de linea.\nLas operaciones asignadas son las siguientes:\n- " + NombreOperacion.CUENTAS_CORRIENTES_COMERCIALES + "\n- " + NombreOperacion.TARJETA_DE_CREDITO);
                             }
                             else if(tipolinea.equals(TipoOperacion.TRES.toString())){
                                 item.setLinea(lineas3);
 
                                 socios.add(item);
+
+                                JOptionPane.showMessageDialog(null, "Se asigno con exito el tipo de linea.\nLas operaciones asignadas son las siguientes:\n- " + NombreOperacion.PRÉSTAMOS);
                             }
                         }
                     }
@@ -74,7 +77,7 @@ public class FrmLineas extends  JDialog{
                 String cadenaAprobacion = JOptionPane.showInputDialog(null, "Ingrese el CUIT del socio: ");
 
                 for(Socios item : socios){
-                    if(cadenaAprobacion.equals(item.getCuit().toString())){
+                    if(cadenaAprobacion.equals(item.getCuit())){
 
                         for(LineaDeCredito item2 : item.getLinea()){
                             item2.setEstado("Aprobada");

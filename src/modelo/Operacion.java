@@ -1,15 +1,7 @@
 package modelo;
 
-import java.util.*;
-
-/**
- * 
- */
 public class Operacion {
 
-    /**
-     * Default constructor
-     */
     public Operacion(Integer operacionID, TipoOperacion tipoOperacion, NombreOperacion nombreOperacion,
                      EstadoOperacion estadoOperacion, float porcentajeComision, EstadoComision estadoComision,
                      Certificados certificadoGarantia, Integer importeTotal1, Integer importeUtilizado2,
@@ -28,9 +20,6 @@ public class Operacion {
         this.TasaDescuento = TasaDescuento;
     }
 
-    /**
-     * 
-     */
     private Integer operacionID;
     private TipoOperacion tipoOperacion;
     private NombreOperacion nombreOperacion;

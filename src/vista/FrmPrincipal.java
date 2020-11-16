@@ -83,7 +83,7 @@ public class FrmPrincipal extends JFrame {
 
                 for(Socios item : socios){
 
-                    if(!cadena.equals("") && cadena.equals(item.getCuit().toString())){
+                    if(!cadena.equals("") && Long.parseLong(cadena) == item.getCuit()){
 
                         if(item.getEstado().equals(EstadoSocio.POSTULANTE_A_SOCIO_PARTICIPE)  || item.getEstado().equals(EstadoSocio.POSTULANTE_A_SOCIO_PROTECTOR)){
                             JOptionPane.showMessageDialog(null, "El socio ingresado no es un socio pleno. Necesita realizar los tramites correspondientes a las acciones para poder operar");

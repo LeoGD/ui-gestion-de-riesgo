@@ -6,7 +6,7 @@ import java.util.*;
  */
 public class Accionista {
 
-    public Accionista(Integer accionistaID, Integer cuitAccionista, String razonSocialAccionista, float porcentajeParticipacion) {
+    public Accionista(Integer accionistaID, Long cuitAccionista, String razonSocialAccionista, float porcentajeParticipacion) {
 
         this.accionistaID = accionistaID;
         this.cuitAccionista = cuitAccionista;
@@ -15,7 +15,7 @@ public class Accionista {
     }
 
     private Integer accionistaID;
-    private Integer cuitAccionista;
+    private Long cuitAccionista;
     private String razonSocialAccionista;
     private float porcentajeParticipacion;
 
@@ -35,11 +35,11 @@ public class Accionista {
         this.accionistaID = accionistaID;
     }
 
-    public Integer getCuitAccionista() {
+    public Long getCuitAccionista() {
         return cuitAccionista;
     }
 
-    public void setCuitAccionista(Integer cuitAccionista) {
+    public void setCuitAccionista(Long cuitAccionista) {
         this.cuitAccionista = cuitAccionista;
     }
 

@@ -1,14 +1,11 @@
 package modelo;
 import java.util.*;
 
-/**
- * 
- */
 public class Socios {
 
 
-    public Socios(Integer socioID, EstadoSocio estado, Integer cuit, String razonSocial, Date fchInicioActividades,
-                  TipoEmpresa tipoEmpresa, String actividadPrincipal, String direccion, Integer telefono, String mail, List<LineaDeCredito> linea,
+    public Socios(Integer socioID, EstadoSocio estado, Long cuit, String razonSocial, Date fchInicioActividades,
+                  TipoEmpresa tipoEmpresa, String actividadPrincipal, String direccion, Long telefono, String mail, List<LineaDeCredito> linea,
                   List<Accionista> accionistas, Documento documentos, Accion acciones){
 
         this.socioID = socioID;
@@ -29,13 +26,13 @@ public class Socios {
 
     private Integer socioID;
     private EstadoSocio estado;
-    private Integer cuit;
+    private Long cuit;
     private String razonSocial;
     private Date fchInicioActividades;
     private TipoEmpresa tipoEmpresa;
     private String actividadPrincipal;
     private String direccion;
-    private Integer telefono;
+    private Long telefono;
     private String mail;
     private List<LineaDeCredito> linea;
     private List<Accionista> accionistas;
@@ -78,11 +75,11 @@ public class Socios {
         this.estado = estado;
     }
 
-    public Integer getCuit() {
+    public Long getCuit() {
         return cuit;
     }
 
-    public void setCuit(Integer cuit) {
+    public void setCuit(Long cuit) {
         this.cuit = cuit;
     }
 
@@ -126,11 +123,11 @@ public class Socios {
         this.direccion = direccion;
     }
 
-    public Integer getTelefono() {
+    public Long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(Integer telefono) {
+    public void setTelefono(Long telefono) {
         this.telefono = telefono;
     }
 
@@ -141,8 +138,6 @@ public class Socios {
     public void setMail(String mail) {
         this.mail = mail;
     }
-/**En duda*/
-    /**public Aporte Aportan;*/
 
 
 

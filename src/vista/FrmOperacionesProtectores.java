@@ -10,9 +10,9 @@ public class FrmOperacionesProtectores extends JDialog{
     private JButton btnAporte;
     private JButton btnRetirar;
     private FrmOperacionesProtectores self;
-    private Integer cuit;
+    private Long cuit;
 
-    public FrmOperacionesProtectores(Window owner, String titulo, Integer cuitSocio)
+    public FrmOperacionesProtectores(Window owner, String titulo, Long cuitSocio)
     {
         super(owner, titulo);
 

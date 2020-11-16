@@ -2,14 +2,8 @@ package modelo;
 
 import java.util.*;
 
-/**
- * 
- */
 public class InformacionCheques {
 
-    /**
-     * Default constructor
-     */
     public InformacionCheques(Integer numDelCheque, String bancoDelCheque,
                               Date fchVencimiento, Integer cuitDelFirmante) {
 

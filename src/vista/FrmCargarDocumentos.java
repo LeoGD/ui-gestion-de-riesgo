@@ -16,6 +16,7 @@ import java.util.List;
 
 import static vista.FrmPrincipal.documentos;
 import static vista.FrmPrincipal.socios;
+import static vista.FrmSocios.cadenaAccionista;
 import static vista.FrmSocios.cadenaDocumento;
 
 public class FrmCargarDocumentos extends JDialog{
@@ -60,7 +61,7 @@ public class FrmCargarDocumentos extends JDialog{
                 }
 
                 for(Socios item : socios) {
-                    if(cadenaDocumento.equals(item.getCuit().toString())) {
+                    if(cadenaAccionista.equals(item.getCuit().toString())) {
                         for (Documento item2 : documentos) {
 
                             Integer valor = Integer.parseInt(tbDocumentoID.getText());

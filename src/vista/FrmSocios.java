@@ -3,12 +3,13 @@ package vista;
 import modelo.Accion;
 import modelo.EstadoSocio;
 import modelo.Socios;
-//import vista.FrmCargarSocios.sociosAlternos;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import static vista.FrmPrincipal.socios;
 
 public class FrmSocios extends JDialog{
 
@@ -52,13 +53,13 @@ public class FrmSocios extends JDialog{
             }
         });
 
-        /*btnCargarAcc.addActionListener(new ActionListener() {
+        btnCargarAcc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cadenaAccionista = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
 
-                for(Socios item : sociosAlternos){
-                    if(cadenaAccionista.equals(item.getCuit().toString()))
+                for(Socios item : socios){
+                    if(Long.parseLong(cadenaAccionista) == item.getCuit())
                     {
                         FrmCargarAccionistas frame = new FrmCargarAccionistas(self, "Sistema de Gestion de Riesgo");
                         frame.setVisible(true);
@@ -72,8 +73,8 @@ public class FrmSocios extends JDialog{
             public void actionPerformed(ActionEvent e) {
                 cadenaDocumento = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
 
-                for(Socios item : sociosAlternos){
-                    if(cadenaDocumento.equals(item.getCuit().toString()))
+                for(Socios item : socios){
+                    if(Long.parseLong(cadenaAccionista) == item.getCuit())
                     {
                         FrmCargarDocumentos frame = new FrmCargarDocumentos(self, "Sistema de Gestion de Riesgo");
                         frame.setVisible(true);
@@ -88,8 +89,8 @@ public class FrmSocios extends JDialog{
 
                 cadenaSuscripcion = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
 
-                for(Socios item : sociosAlternos){
-                    if(cadenaSuscripcion.equals(item.getCuit().toString()) && item.getEstado() == EstadoSocio.POSTULANTE_A_SOCIO_PARTICIPE)
+                for(Socios item : socios){
+                    if(Long.parseLong(cadenaAccionista) == item.getCuit() && item.getEstado() == EstadoSocio.POSTULANTE_A_SOCIO_PARTICIPE)
                     {
                         String cadenaAcciones = JOptionPane.showInputDialog("Cuantas acciones tipo A desea vender? ");
                         Integer cantidadAccionesTipoA = Integer.parseInt(cadenaAcciones);
@@ -101,7 +102,7 @@ public class FrmSocios extends JDialog{
 
                         JOptionPane.showMessageDialog(null,"Se vendieron exitosamente las acciones. El socio se convirtio en " + item.getEstado());
                     }
-                    else if(cadenaSuscripcion.equals(item.getCuit().toString()) && item.getEstado() == EstadoSocio.POSTULANTE_A_SOCIO_PROTECTOR)
+                    else if(Long.parseLong(cadenaAccionista) == item.getCuit() && item.getEstado() == EstadoSocio.POSTULANTE_A_SOCIO_PROTECTOR)
                     {
                         String cadenaAcciones = JOptionPane.showInputDialog("Cuantas acciones tipo B desea vender? ");
                         Integer cantidadAccionesTipoB = Integer.parseInt(cadenaAcciones);
@@ -115,6 +116,6 @@ public class FrmSocios extends JDialog{
                     }
                 }
             }
-        });*/
+        });
     }
 }

@@ -19,9 +19,9 @@ public class FrmAporte extends JDialog{
     private JTextField tbAporteID;
     private JTextField tbMonto;
     private JButton btnEnviar;
-    private Integer cuit;
+    private Long cuit;
 
-    public FrmAporte(Window owner, String titulo, Integer cuitSocio)
+    public FrmAporte(Window owner, String titulo, Long cuitSocio)
     {
         super(owner, titulo);
 

@@ -47,7 +47,7 @@ public class FrmCargarAccionistas extends JDialog{
 
                 accionistas.add(new Accionista(
                         Integer.parseInt(tbAccionistaID.getText()),
-                        Integer.parseInt(tbCUITAccionista.getText()),
+                        Long.parseLong(tbCUITAccionista.getText()),
                         tbRazonSocial.getText(),
                         Float.parseFloat(tbParticipacion.getText())
                 ));

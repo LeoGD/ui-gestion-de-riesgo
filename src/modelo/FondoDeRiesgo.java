@@ -1,14 +1,7 @@
 package modelo;
-import java.util.*;
 
-/**
- * 
- */
 public class FondoDeRiesgo {
 
-    /**
-     * Default constructor
-     */
     public FondoDeRiesgo(Integer monto) {
 
         this.monto = monto;
