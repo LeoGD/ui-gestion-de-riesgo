@@ -8,7 +8,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 
 import static vista.FrmPrincipal.socios;
 
@@ -60,6 +59,7 @@ public class FrmCargarSocios extends JDialog{
                             tbDireccion.getText(),
                             Long.parseLong(tbTelefono.getText()),
                             tbCorreo.getText(),
+                            null,
                             null,
                             null,
                             null,

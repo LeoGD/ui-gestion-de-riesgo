@@ -18,9 +18,9 @@ public class FrmRetirar extends JDialog{
     private JTextField tbMontoRetiro;
     private JPanel pnlCargaRetiro;
     private JButton btnEnviar;
-    private Integer cuit;
+    private Long cuit;
 
-    public FrmRetirar(Window owner, String titulo, Integer cuitSocio)
+    public FrmRetirar(Window owner, String titulo, Long cuitSocio)
     {
         super(owner, titulo);
 
@@ -39,20 +39,23 @@ public class FrmRetirar extends JDialog{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                /*SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-                Socios socioAporte = null;
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
-                for(Socios item : socios){
-                    if(item.getCuit() == cuit){
-                        socioAporte = item;
+                for(Aporte item : aportes){
+
+                    Long cuitSocioAporte = item.getSocio().getCuit();
+
+                    if(cuitSocioAporte.equals(cuit)){
+                        try {
+                            item.setFchRetirar(formato.parse(tbFechaRetiro.getText()));
+                        } catch (ParseException parseException) {
+                            parseException.printStackTrace();
+                        }
+                        item.getFDR().setMonto(item.getFDR().getMonto() - Integer.parseInt(tbMontoRetiro.getText()));
                     }
                 }
 
-                for(Aporte item2 : aportes){
-                    if()
-                }
-
-                JOptionPane.showMessageDialog(null, "Se realizó con exito la operacion");*/
+                JOptionPane.showMessageDialog(null, "Se realizó con exito la operacion");
             }
         });
     }

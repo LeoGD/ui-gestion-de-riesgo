@@ -9,7 +9,7 @@ public class Socios {
 
     public Socios(Integer socioID, EstadoSocio estado, Long cuit, String razonSocial, Date fchInicioActividades,
                   TipoEmpresa tipoEmpresa, String actividadPrincipal, String direccion, Long telefono, String mail, List<LineaDeCredito> linea,
-                  List<Accionista> accionistas, Documento documentos, Accion acciones){
+                  List<Accionista> accionistas, Documento documentos, Accion acciones, Aporte aportes){
 
         this.socioID = socioID;
         this.estado = estado;
@@ -25,6 +25,7 @@ public class Socios {
         this.accionistas = accionistas;
         this.documentos = documentos;
         this.acciones = acciones;
+        this.aportes = aportes;
     }
 
     private Integer socioID;
@@ -41,6 +42,7 @@ public class Socios {
     private List<Accionista> accionistas;
     private Documento documentos;
     private Accion acciones;
+    private Aporte aportes;
 
     public Accion getAcciones() { return acciones; }
 
