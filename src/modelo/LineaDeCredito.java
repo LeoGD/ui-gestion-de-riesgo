@@ -9,6 +9,8 @@ public class LineaDeCredito {
     /**
      * Default constructor
      */
+    public LineaDeCredito(){}
+
     public LineaDeCredito(Integer lineaCreditoID, Integer monto, String fechaVigencia, String estado, Operacion tipoOperaciones,
                           Integer utilizadoDeLinea) {
         this.lineaCreditoID = lineaCreditoID;
@@ -34,46 +36,43 @@ public class LineaDeCredito {
         this.lineaCreditoID = lineaCreditoID;
     }
 
-    /**
-     * 
-     */
-    public void getTasaDescuento() {
-        // TODO implement here
+    public Integer getMonto() {
+        return monto;
     }
 
-    /**
-     * 
-     */
-    public void getTipoOperacion() {
-        // TODO implement here
+    public void setMonto(Integer monto) {
+        this.monto = monto;
     }
 
-    /**
-     * 
-     */
-    public void getNombreOperacion() {
-        // TODO implement here
+    public String getFechaVigencia() {
+        return fechaVigencia;
     }
 
-    /**
-     * 
-     */
-    public void getEstadoOperacion() {
-        // TODO implement here
+    public void setFechaVigencia(String fechaVigencia) {
+        this.fechaVigencia = fechaVigencia;
     }
 
-    /**
-     * 
-     */
-    public void getOperacionID() {
-        // TODO implement here
+    public String getEstado() {
+        return estado;
     }
 
-    /**
-     * 
-     */
-    public void get10porcMonto() {
-        // TODO implement here
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
+    public Operacion getTipoOperaciones() {
+        return tipoOperaciones;
+    }
+
+    public void setTipoOperaciones(Operacion tipoOperaciones) {
+        this.tipoOperaciones = tipoOperaciones;
+    }
+
+    public Integer getUtilizadoDeLinea() {
+        return utilizadoDeLinea;
+    }
+
+    public void setUtilizadoDeLinea(Integer utilizadoDeLinea) {
+        this.utilizadoDeLinea = utilizadoDeLinea;
+    }
 }

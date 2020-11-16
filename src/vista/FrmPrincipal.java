@@ -24,7 +24,12 @@ public class FrmPrincipal extends JFrame {
     public static final List<LineaDeCredito> lineas3 = new ArrayList<LineaDeCredito>();
     public static final List<Operacion> operaciones = new ArrayList<Operacion>();
     public static final List<Accionista> accionistas = new ArrayList<Accionista>();
-    public static final List<Documento> documentos = new ArrayList<>();
+    public static final List<Documento> documentos = new ArrayList<Documento>();
+    public static final List<InformacionCheques> cheques = new ArrayList<InformacionCheques>();
+    public static final List<InformacionCuentasCorrientesComerciales> CCC = new ArrayList<InformacionCuentasCorrientesComerciales>();
+    public static final List<InformacionPrestamos> prestamos = new ArrayList<InformacionPrestamos>();
+    public static final List<Aporte> aportes = new ArrayList<Aporte>();
+    public static final FondoDeRiesgo fondo = null;
 
     private FrmPrincipal self;
 
@@ -76,48 +81,34 @@ public class FrmPrincipal extends JFrame {
 
                 String cadena = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
 
-                /*CUANDO SE DEFINAN LOS MODELOS, SE TIENE QUE MODIFICAR LA LOGICA PARA QUE RECORRA TODOS
-                //LOS SOCIOS CARGADOS Y QUE VAYA COMPARANDO CADA UNO CON EL INGRESADO, EN CASO DE NO ENCONTRARLO,
-                ANULAR EL INGRESO AL MENU OPERACIONES*/
-                if(cadena.equals("1111111"))
-                {
-                    FrmOperacionesTipo1 frame = new FrmOperacionesTipo1(self, "Sistema de Gestion de Riesgo");
-                    frame.setVisible(true);
-                }
-                else if(cadena.equals("2222222"))
-                {
-                    FrmOperacionesTipo2 frame = new FrmOperacionesTipo2(self, "Sistema de Gestion de Riesgo");
-                    frame.setVisible(true);
-                }
-                else if(cadena.equals("3333333"))
-                {
-                    FrmOperacionesTipo3 frame = new FrmOperacionesTipo3(self, "Sistema de Gestion de Riesgo");
-                    frame.setVisible(true);
-                }
-                else if(cadena.equals("12345678"))
-                {
-                    FrmOperacionesProtectores frame = new FrmOperacionesProtectores(self, "Sistema de Gestion de Riesgo");
-                    frame.setVisible(true);
-                }
-                else {
-                    JOptionPane.showMessageDialog(null,"No se encontró el socio ingresado");
-                }
+                for(Socios item : socios){
 
-                /*for(Socios item : socios){
-                    if(cadena != null && cadena.equals(item.getCuit())){
-                        if(item.getEstado().equals("POSTULANTE_A_SOCIO_PARTICIPE")  || item.getEstado().equals("POSTULANTE_A_SOCIO_PROTECTOR")){
+                    if(!cadena.equals("") && cadena.equals(item.getCuit().toString())){
+
+                        if(item.getEstado().equals(EstadoSocio.POSTULANTE_A_SOCIO_PARTICIPE)  || item.getEstado().equals(EstadoSocio.POSTULANTE_A_SOCIO_PROTECTOR)){
                             JOptionPane.showMessageDialog(null, "El socio ingresado no es un socio pleno. Necesita realizar los tramites correspondientes a las acciones para poder operar");
                         }
-                        if(item.getEstado().equals("SOCIO_PLENO_PARTICIPE")){
-                            //RELLENAR CON CODIGO
+                        if(item.getEstado().equals(EstadoSocio.POSTULANTE_A_SOCIO_PARTICIPE)){
+                            if(item.getLinea().equals(lineas1)){
+                                FrmOperacionesTipo1 frame = new FrmOperacionesTipo1(self, "Sistema de Gestion de Riesgo");
+                                frame.setVisible(true);
+                            }
+                            else if(item.getLinea().equals(lineas2)){
+                                FrmOperacionesTipo2 frame = new FrmOperacionesTipo2(self, "Sistema de Gestion de Riesgo");
+                                frame.setVisible(true);
+                            }
+                            else if(item.getLinea().equals(lineas3)){
+                                FrmOperacionesTipo3 frame = new FrmOperacionesTipo3(self, "Sistema de Gestion de Riesgo");
+                                frame.setVisible(true);
+                            }
                         }
-                        if(item.getEstado().equals("SOCIO_PLENO_PROTECTORES")){
-                            FrmOperacionesProtectores frame = new FrmOperacionesProtectores(self, "Sistema de Gestion de Riesgo");
+                        if(item.getEstado().equals(EstadoSocio.SOCIO_PLENO_PROTECTOR)){
+                            FrmOperacionesProtectores frame = new FrmOperacionesProtectores(self, "Sistema de Gestion de Riesgo", item.getCuit());
                             frame.setVisible(true);
                         }
 
                     }
-                }*/
+                }
             }
         });
 
@@ -134,35 +125,33 @@ public class FrmPrincipal extends JFrame {
 
         FrmPrincipal frame = new FrmPrincipal("Sistema de Gestion de Riesgo");
 
-        operaciones.add(new Operacion(0001, TipoOperacion.UNO, NombreOperacion.CHEQUES_PROPIOS, EstadoOperacion.INGRESADO,
-                0.15f, EstadoComision.Calculada, new Certificados(0001), 0, 0, 0, 0.05f));
-        operaciones.add(new Operacion(0002, TipoOperacion.UNO, NombreOperacion.CHEQUES_DE_TERCEROS, EstadoOperacion.INGRESADO,
-                0.13f, EstadoComision.Calculada, new Certificados(0002), 0, 0, 0, 0.1f));
-        operaciones.add(new Operacion(0003, TipoOperacion.UNO, NombreOperacion.PAGARÉ_BURSATIL, EstadoOperacion.INGRESADO,
-                0.2f, EstadoComision.Calculada, new Certificados(0003), 0, 0, 0, 0.05f));
-        operaciones.add(new Operacion(0004, TipoOperacion.DOS, NombreOperacion.CUENTAS_CORRIENTES_COMERCIALES, EstadoOperacion.INGRESADO,
-                0.05f, EstadoComision.Calculada, new Certificados(0003), 0, 0, 0, 0.05f));
-        operaciones.add(new Operacion(0005, TipoOperacion.DOS, NombreOperacion.TARJETA_DE_CREDITO, EstadoOperacion.INGRESADO,
-                0.07f, EstadoComision.Calculada, new Certificados(0003), 0, 0, 0, 0.05f));
-        operaciones.add(new Operacion(0006, TipoOperacion.TRES, NombreOperacion.PRÉSTAMOS, EstadoOperacion.INGRESADO,
-                0.09f, EstadoComision.Calculada, new Certificados(0003), 0, 0, 0, 0.05f));
+        operaciones.add(new Operacion(1111, TipoOperacion.UNO, NombreOperacion.CHEQUES_PROPIOS, EstadoOperacion.INGRESADO,
+                0.15f, EstadoComision.Calculada, null, 0, 0, 0, 0.05f));
+        operaciones.add(new Operacion(2222, TipoOperacion.UNO, NombreOperacion.CHEQUES_DE_TERCEROS, EstadoOperacion.INGRESADO,
+                0.13f, EstadoComision.Calculada, null, 0, 0, 0, 0.1f));
+        operaciones.add(new Operacion(3333, TipoOperacion.UNO, NombreOperacion.PAGARÉ_BURSATIL, EstadoOperacion.INGRESADO,
+                0.2f, EstadoComision.Calculada, null, 0, 0, 0, 0.05f));
+        operaciones.add(new Operacion(4444, TipoOperacion.DOS, NombreOperacion.CUENTAS_CORRIENTES_COMERCIALES, EstadoOperacion.INGRESADO,
+                0.05f, EstadoComision.Calculada, null, 0, 0, 0, 0.05f));
+        operaciones.add(new Operacion(5555, TipoOperacion.DOS, NombreOperacion.TARJETA_DE_CREDITO, EstadoOperacion.INGRESADO,
+                0.07f, EstadoComision.Calculada, null, 0, 0, 0, 0.05f));
+        operaciones.add(new Operacion(6666, TipoOperacion.TRES, NombreOperacion.PRÉSTAMOS, EstadoOperacion.INGRESADO,
+                0.09f, EstadoComision.Calculada, null, 0, 0, 0, 0.05f));
 
-        socios.add(new Socios());
+        lineas1.add(new LineaDeCredito(1111, 20000, "16/08/2021",
+                "Vigente", operaciones.get(0), 0));
+        lineas1.add(new LineaDeCredito(2222, 42000, "16/08/2021",
+                "Vigente", operaciones.get(1), 0));
+        lineas1.add(new LineaDeCredito(3333, 37000, "16/08/2021",
+                "Vigente", operaciones.get(2), 0));
 
-        lineas1.add(new LineaDeCredito(0001, 20000, "16/08/2021",
-                "Aprobada", operaciones.get(0), 0));
-        lineas1.add(new LineaDeCredito(0002, 42000, "16/08/2021",
-                "Aprobada", operaciones.get(1), 0));
-        lineas1.add(new LineaDeCredito(0003, 37000, "16/08/2021",
-                "Aprobada", operaciones.get(2), 0));
+        lineas2.add(new LineaDeCredito(1111, 60000, "16/08/2021",
+                "Vigente", operaciones.get(3), 0));
+        lineas2.add(new LineaDeCredito(2222, 85000, "16/08/2021",
+                "Vigente", operaciones.get(4), 0));
 
-        lineas2.add(new LineaDeCredito(0001, 60000, "16/08/2021",
-                "Aprobada", operaciones.get(3), 0));
-        lineas2.add(new LineaDeCredito(0002, 85000, "16/08/2021",
-                "Aprobada", operaciones.get(4), 0));
-
-        lineas3.add(new LineaDeCredito(0001, 40000, "16/08/2021",
-                "Aprobada", operaciones.get(5), 0));
+        lineas3.add(new LineaDeCredito(1111, 40000, "16/08/2021",
+                "Vigente", operaciones.get(5), 0));
 
         frame.setVisible(true);
     }

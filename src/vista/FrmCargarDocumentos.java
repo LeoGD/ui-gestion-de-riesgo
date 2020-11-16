@@ -3,18 +3,20 @@ package vista;
 import modelo.Accionista;
 import modelo.Documento;
 import modelo.EstadoDocumento;
-import modelo.Usuario;
+import modelo.Socios;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import static vista.FrmPrincipal.accionistas;
 import static vista.FrmPrincipal.documentos;
+import static vista.FrmPrincipal.socios;
+import static vista.FrmSocios.cadenaDocumento;
 
 public class FrmCargarDocumentos extends JDialog{
     private JPanel pnlCargaDocumentos;
@@ -24,7 +26,6 @@ public class FrmCargarDocumentos extends JDialog{
     private JButton btnEnviarDocumentos;
     private JComboBox cbTipoDocumento;
     private JComboBox cbEstadoDocumento;
-    public static final List<Documento> documentosAlternos = new ArrayList<>();
 
     public FrmCargarDocumentos(Window owner, String titulo)
     {
@@ -36,8 +37,6 @@ public class FrmCargarDocumentos extends JDialog{
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         asociarEventos();
-
-        //this.self = this;
     }
 
     private void asociarEventos()
@@ -46,18 +45,37 @@ public class FrmCargarDocumentos extends JDialog{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                for(Documento item : documentos) {
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
-                    item.setDocumentoID(Integer.parseInt(tbDocumentoID.getText()));
-                    item.setTipoDocumento(cbTipoDocumento.getSelectedItem().toString());
-                    item.setFchRecepcion(Date.valueOf(tbFechaRecepcion.getText()));
-                    item.setEstado(EstadoDocumento.valueOf(cbEstadoDocumento.getSelectedItem().toString()));
-                    item.setUsuario(tbUsuario.getText());
-
-                    documentosAlternos.add(item);
+                try {
+                    documentos.add(new Documento(
+                            Integer.parseInt(tbDocumentoID.getText()),
+                            cbTipoDocumento.getSelectedItem().toString(),
+                            formato.parse(tbFechaRecepcion.getText()),
+                            EstadoDocumento.valueOf(cbEstadoDocumento.getSelectedItem().toString()),
+                            tbUsuario.getText()
+                    ));
+                } catch (ParseException parseException) {
+                    parseException.printStackTrace();
                 }
 
-                JOptionPane.showMessageDialog(null, "Se dio de alta exitosamente el accionista");
+                for(Socios item : socios) {
+                    if(cadenaDocumento.equals(item.getCuit().toString())) {
+                        for (Documento item2 : documentos) {
+
+                            Integer valor = Integer.parseInt(tbDocumentoID.getText());
+
+                            if(valor == item2.getDocumentoID()){
+                                item.setDocumentos(item2);
+
+                                socios.add(item);
+                            }
+                        }
+                        break;
+                    }
+                }
+
+                JOptionPane.showMessageDialog(null, "Se dio de alta exitosamente el documento");
             }
         });
     }

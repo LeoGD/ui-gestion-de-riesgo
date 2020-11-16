@@ -2,11 +2,14 @@ package vista;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class FrmOperacionesTipo2 extends JDialog{
     private JPanel pnlPrincipal;
     private JButton btnCCC;
     private JButton btnTarjeta;
+    private FrmOperacionesTipo2 self;
 
     public FrmOperacionesTipo2(Window owner, String titulo)
     {
@@ -19,6 +22,25 @@ public class FrmOperacionesTipo2 extends JDialog{
         setLocationRelativeTo(null);
         btnCCC.setPreferredSize(new Dimension(230,40));
         btnTarjeta.setPreferredSize(new Dimension(230,40));
-        //asociarEventos();
+        asociarEventos();
+
+        this.self = this;
+    }
+
+    private void asociarEventos(){
+        btnCCC.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FrmCargaCCC frame = new FrmCargaCCC(self, "Sistema de Gestion de Riesgo");
+                frame.setVisible(true);
+            }
+        });
+
+        btnTarjeta.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //DUDA A CONSULTAR
+            }
+        });
     }
 }

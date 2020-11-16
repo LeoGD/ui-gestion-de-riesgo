@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import static vista.FrmPrincipal.accionistas;
 import static vista.FrmPrincipal.socios;
+import static vista.FrmSocios.cadenaAccionista;
 
 public class FrmCargarAccionistas extends JDialog{
     private JPanel pnlCargaAccionistas;
@@ -23,7 +24,6 @@ public class FrmCargarAccionistas extends JDialog{
     private JTextField tbRazonSocial;
     private JTextField tbAccionistaID;
     private JButton btnEnviarAccionista;
-    public static final ArrayList<Accionista> accionistasAlternos = new ArrayList<Accionista>();
 
     public FrmCargarAccionistas(Window owner, String titulo)
     {
@@ -45,14 +45,26 @@ public class FrmCargarAccionistas extends JDialog{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                for(Accionista item : accionistas) {
+                accionistas.add(new Accionista(
+                        Integer.parseInt(tbAccionistaID.getText()),
+                        Integer.parseInt(tbCUITAccionista.getText()),
+                        tbRazonSocial.getText(),
+                        Float.parseFloat(tbParticipacion.getText())
+                ));
 
-                    item.setAccionistaID(Integer.parseInt(tbAccionistaID.getText()));
-                    item.setCuitAccionista(Integer.parseInt(tbCUITAccionista.getText()));
-                    item.setRazonSocialAccionista(tbRazonSocial.getText());
-                    item.setPorcentajeParticipacion(Integer.parseInt(tbParticipacion.getText()));
+                for(Socios item : socios) {
+                    if(cadenaAccionista.equals(item.getCuit().toString())) {
+                        for (Accionista item2 : accionistas) {
 
-                    accionistasAlternos.add(item);
+                            Integer valor = Integer.parseInt(tbAccionistaID.getText());
+
+                            if(valor == item2.getAccionistaID()){
+                                item.setAccionistas(accionistas);
+
+                                socios.add(item);
+                            }
+                        }
+                    }
                 }
 
                 JOptionPane.showMessageDialog(null, "Se dio de alta exitosamente el accionista");

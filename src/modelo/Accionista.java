@@ -6,10 +6,12 @@ import java.util.*;
  */
 public class Accionista {
 
-    /**
-     * Default constructor
-     */
-    public Accionista() {
+    public Accionista(Integer accionistaID, Integer cuitAccionista, String razonSocialAccionista, float porcentajeParticipacion) {
+
+        this.accionistaID = accionistaID;
+        this.cuitAccionista = cuitAccionista;
+        this.razonSocialAccionista = razonSocialAccionista;
+        this.porcentajeParticipacion = porcentajeParticipacion;
     }
 
     private Integer accionistaID;

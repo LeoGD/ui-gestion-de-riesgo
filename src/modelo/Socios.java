@@ -6,10 +6,25 @@ import java.util.*;
  */
 public class Socios {
 
-    /**
-     * Default constructor
-     */
-    public Socios() {
+
+    public Socios(Integer socioID, EstadoSocio estado, Integer cuit, String razonSocial, Date fchInicioActividades,
+                  TipoEmpresa tipoEmpresa, String actividadPrincipal, String direccion, Integer telefono, String mail, List<LineaDeCredito> linea,
+                  List<Accionista> accionistas, Documento documentos, Accion acciones){
+
+        this.socioID = socioID;
+        this.estado = estado;
+        this.cuit = cuit;
+        this.razonSocial = razonSocial;
+        this.fchInicioActividades = fchInicioActividades;
+        this.tipoEmpresa = tipoEmpresa;
+        this.actividadPrincipal = actividadPrincipal;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.mail = mail;
+        this.linea = linea;
+        this.accionistas = accionistas;
+        this.documentos = documentos;
+        this.acciones = acciones;
     }
 
     private Integer socioID;
@@ -22,21 +37,26 @@ public class Socios {
     private String direccion;
     private Integer telefono;
     private String mail;
-    private LineaDeCredito linea;
-    private Accionista accionistas;
+    private List<LineaDeCredito> linea;
+    private List<Accionista> accionistas;
     private Documento documentos;
+    private Accion acciones;
 
-    public LineaDeCredito getLinea() {
+    public Accion getAcciones() { return acciones; }
+
+    public void setAcciones(Accion acciones) { this.acciones = acciones; }
+
+    public List<LineaDeCredito> getLinea() {
         return linea;
     }
 
-    public void setLinea(LineaDeCredito linea) {
+    public void setLinea(List<LineaDeCredito> linea) {
         this.linea = linea;
     }
 
-    public Accionista getAccionistas() { return accionistas; }
+    public List<Accionista> getAccionistas() { return accionistas; }
 
-    public void setAccionistas(Accionista accionistas) { this.accionistas = accionistas; }
+    public void setAccionistas(List<Accionista> accionistas) { this.accionistas = accionistas; }
 
     public Documento getDocumentos() { return documentos; }
 

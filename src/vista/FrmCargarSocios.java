@@ -1,8 +1,6 @@
 package vista;
 
-import modelo.EstadoSocio;
-import modelo.Socios;
-import modelo.TipoEmpresa;
+import modelo.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +25,6 @@ public class FrmCargarSocios extends JDialog{
     private JTextField tbCorreo;
     private JTextField tbFecha;
     private JComboBox cbEstadoSocio;
-    public static final ArrayList<Socios> sociosAlternos = new ArrayList<Socios>();
 
     public FrmCargarSocios(Window owner, String titulo)
     {
@@ -51,24 +48,25 @@ public class FrmCargarSocios extends JDialog{
 
                 SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
-                for(Socios item : socios) {
-
-                    item.setSocioID(Integer.parseInt(tbsocioID.getText()));
-                    item.setCuit(Integer.parseInt(tbCUIT.getText()));
-                    item.setRazonSocial(tbRazonSocial.getText());
-                    item.setEstado(EstadoSocio.valueOf(cbEstadoSocio.getSelectedItem().toString()));
-                    item.setTipoEmpresa(TipoEmpresa.valueOf(cbTipoEmpresa.getSelectedItem().toString()));
-                    try {
-                        item.setFchInicioActividades(formato.parse(tbFecha.getText()));
-                    } catch (ParseException parseException) {
-                        parseException.printStackTrace();
-                    }
-                    item.setActividadPrincipal(tbActividad.getText());
-                    item.setDireccion(tbDireccion.getText());
-                    item.setTelefono(Integer.parseInt(tbTelefono.getText()));
-                    item.setMail(tbCorreo.getText());
-
-                    sociosAlternos.add(item);
+                try {
+                    socios.add(new Socios(
+                            Integer.parseInt(tbsocioID.getText()),
+                            EstadoSocio.valueOf(cbEstadoSocio.getSelectedItem().toString()),
+                            Integer.parseInt(tbCUIT.getText()),
+                            tbRazonSocial.getText(),
+                            formato.parse(tbFecha.getText()),
+                            TipoEmpresa.valueOf(cbTipoEmpresa.getSelectedItem().toString()),
+                            tbActividad.getText(),
+                            tbDireccion.getText(),
+                            Integer.parseInt(tbTelefono.getText()),
+                            tbCorreo.getText(),
+                            null,
+                            null,
+                            null,
+                            null
+                    ));
+                } catch (ParseException parseException) {
+                    parseException.printStackTrace();
                 }
 
                 JOptionPane.showMessageDialog(null, "Se dio de alta exitosamente el socio");

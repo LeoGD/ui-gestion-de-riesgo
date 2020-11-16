@@ -9,10 +9,16 @@ public class Documento {
     /**
      * Default constructor
      */
-    public Documento() {
+    public Documento(Integer documentoID, String tipoDocumento, Date fchRecepcion, EstadoDocumento estado, String usuario) {
+
+        this.documentoID = documentoID;
+        this.tipoDocumento = tipoDocumento;
+        this.fchRecepcion = fchRecepcion;
+        this.estado = estado;
+        this.usuario = usuario;
     }
 
-    private int documentoID;
+    private Integer documentoID;
     private String tipoDocumento;
     private Date fchRecepcion;
     private EstadoDocumento estado;

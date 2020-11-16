@@ -1,13 +1,14 @@
 package vista;
 
+import modelo.Accion;
+import modelo.EstadoSocio;
 import modelo.Socios;
+//import vista.FrmCargarSocios.sociosAlternos;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import static vista.FrmCargarSocios.sociosAlternos;
 
 public class FrmSocios extends JDialog{
 
@@ -16,6 +17,10 @@ public class FrmSocios extends JDialog{
     private JButton btnSubAcc;
     private JButton btnAltaDoc;
     private JButton btnCargarAcc;
+    public static String cadenaAccionista = new String();
+    public static String cadenaDocumento = new String();
+    public static String cadenaSuscripcion = new String();
+
 
     private FrmSocios self;
 
@@ -47,13 +52,13 @@ public class FrmSocios extends JDialog{
             }
         });
 
-        btnCargarAcc.addActionListener(new ActionListener() {
+        /*btnCargarAcc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String cadena = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
+                cadenaAccionista = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
 
                 for(Socios item : sociosAlternos){
-                    if(cadena.equals(item.getCuit().toString()))
+                    if(cadenaAccionista.equals(item.getCuit().toString()))
                     {
                         FrmCargarAccionistas frame = new FrmCargarAccionistas(self, "Sistema de Gestion de Riesgo");
                         frame.setVisible(true);
@@ -65,10 +70,10 @@ public class FrmSocios extends JDialog{
         btnAltaDoc.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String cadena = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
+                cadenaDocumento = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
 
                 for(Socios item : sociosAlternos){
-                    if(cadena.equals(item.getCuit().toString()))
+                    if(cadenaDocumento.equals(item.getCuit().toString()))
                     {
                         FrmCargarDocumentos frame = new FrmCargarDocumentos(self, "Sistema de Gestion de Riesgo");
                         frame.setVisible(true);
@@ -76,5 +81,40 @@ public class FrmSocios extends JDialog{
                 }
             }
         });
+
+        btnSubAcc.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                cadenaSuscripcion = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
+
+                for(Socios item : sociosAlternos){
+                    if(cadenaSuscripcion.equals(item.getCuit().toString()) && item.getEstado() == EstadoSocio.POSTULANTE_A_SOCIO_PARTICIPE)
+                    {
+                        String cadenaAcciones = JOptionPane.showInputDialog("Cuantas acciones tipo A desea vender? ");
+                        Integer cantidadAccionesTipoA = Integer.parseInt(cadenaAcciones);
+
+                        Accion accionModificada = item.getAcciones();
+                        accionModificada.setCantidad(item.getAcciones().getCantidad() - cantidadAccionesTipoA);
+
+                        item.setEstado(EstadoSocio.SOCIO_PLENO_PARTICIPE);
+
+                        JOptionPane.showMessageDialog(null,"Se vendieron exitosamente las acciones. El socio se convirtio en " + item.getEstado());
+                    }
+                    else if(cadenaSuscripcion.equals(item.getCuit().toString()) && item.getEstado() == EstadoSocio.POSTULANTE_A_SOCIO_PROTECTOR)
+                    {
+                        String cadenaAcciones = JOptionPane.showInputDialog("Cuantas acciones tipo B desea vender? ");
+                        Integer cantidadAccionesTipoB = Integer.parseInt(cadenaAcciones);
+
+                        Accion accionModificada = item.getAcciones();
+                        accionModificada.setCantidad(item.getAcciones().getCantidad() - cantidadAccionesTipoB);
+
+                        item.setEstado(EstadoSocio.SOCIO_PLENO_PROTECTOR);
+
+                        JOptionPane.showMessageDialog(null,"Se vendieron exitosamente las acciones. El socio se convirtio en " + item.getEstado());
+                    }
+                }
+            }
+        });*/
     }
 }

@@ -2,12 +2,15 @@ package vista;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class FrmOperacionesTipo1 extends JDialog{
     private JPanel pnlPrincipal;
     private JButton btnChequesPropios;
     private JButton btnChequesTerceros;
     private JButton btnPagare;
+    private FrmOperacionesTipo1 self;
 
     public FrmOperacionesTipo1(Window owner, String titulo)
     {
@@ -21,6 +24,34 @@ public class FrmOperacionesTipo1 extends JDialog{
         btnChequesPropios.setPreferredSize(new Dimension(230,40));
         btnChequesTerceros.setPreferredSize(new Dimension(230,40));
         btnPagare.setPreferredSize(new Dimension(230,40));
-        //asociarEventos();
+        asociarEventos();
+
+        this.self = this;
+    }
+
+    private void asociarEventos(){
+        btnChequesPropios.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FrmCargaChequesPagare frame = new FrmCargaChequesPagare(self, "Sistema de Gestion de Riesgo");
+                frame.setVisible(true);
+            }
+        });
+
+        btnChequesTerceros.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FrmCargaChequesPagare frame = new FrmCargaChequesPagare(self, "Sistema de Gestion de Riesgo");
+                frame.setVisible(true);
+            }
+        });
+
+        btnPagare.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                FrmCargaChequesPagare frame = new FrmCargaChequesPagare(self, "Sistema de Gestion de Riesgo");
+                frame.setVisible(true);
+            }
+        });
     }
 }

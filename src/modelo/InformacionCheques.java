@@ -10,27 +10,49 @@ public class InformacionCheques {
     /**
      * Default constructor
      */
-    public InformacionCheques() {
+    public InformacionCheques(Integer numDelCheque, String bancoDelCheque,
+                              Date fchVencimiento, Integer cuitDelFirmante) {
+
+        this.numDelCheque = numDelCheque;
+        this.bancoDelCheque = bancoDelCheque;
+        this.fchVencimiento = fchVencimiento;
+        this.cuitDelFirmante = cuitDelFirmante;
     }
 
-    /**
-     * 
-     */
-    private Integer informacionChequesID;
     private Integer numDelCheque;
     private String bancoDelCheque;
     private Date fchVencimiento;
     private Integer cuitDelFirmante;
 
-
-    public Operacion Presenta;
-
-
-    /**
-     * 
-     */
-    public void getcuitFirmante() {
-        // TODO implement here
+    public Integer getNumDelCheque() {
+        return numDelCheque;
     }
 
+    public void setNumDelCheque(Integer numDelCheque) {
+        this.numDelCheque = numDelCheque;
+    }
+
+    public String getBancoDelCheque() {
+        return bancoDelCheque;
+    }
+
+    public void setBancoDelCheque(String bancoDelCheque) {
+        this.bancoDelCheque = bancoDelCheque;
+    }
+
+    public Date getFchVencimiento() {
+        return fchVencimiento;
+    }
+
+    public void setFchVencimiento(Date fchVencimiento) {
+        this.fchVencimiento = fchVencimiento;
+    }
+
+    public Integer getCuitDelFirmante() {
+        return cuitDelFirmante;
+    }
+
+    public void setCuitDelFirmante(Integer cuitDelFirmante) {
+        this.cuitDelFirmante = cuitDelFirmante;
+    }
 }
