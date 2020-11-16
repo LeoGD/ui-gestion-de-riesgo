@@ -3,6 +3,9 @@ import java.util.*;
 
 public class Socios {
 
+    public Socios(List<Accionista> accionistas){
+        this.accionistas = accionistas;
+    }
 
     public Socios(Integer socioID, EstadoSocio estado, Long cuit, String razonSocial, Date fchInicioActividades,
                   TipoEmpresa tipoEmpresa, String actividadPrincipal, String direccion, Long telefono, String mail, List<LineaDeCredito> linea,

@@ -45,6 +45,8 @@ public class FrmCargarAccionistas extends JDialog{
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                accionistas.clear();
+
                 accionistas.add(new Accionista(
                         Integer.parseInt(tbAccionistaID.getText()),
                         Long.parseLong(tbCUITAccionista.getText()),
@@ -58,16 +60,23 @@ public class FrmCargarAccionistas extends JDialog{
 
                             Integer valor = Integer.parseInt(tbAccionistaID.getText());
 
-                            if(valor == item2.getAccionistaID()){
+                            if(valor.equals(item2.getAccionistaID())){
+
                                 item.setAccionistas(accionistas);
 
-                                socios.add(item);
+                                break;
                             }
                         }
                     }
+                    break;
                 }
 
                 JOptionPane.showMessageDialog(null, "Se dio de alta exitosamente el accionista");
+
+                tbCUITAccionista.setText("");
+                tbParticipacion.setText("");
+                tbRazonSocial.setText("");
+                tbAccionistaID.setText("");
             }
         });
     }

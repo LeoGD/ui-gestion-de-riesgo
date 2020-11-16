@@ -59,10 +59,13 @@ public class FrmSocios extends JDialog{
                 cadenaAccionista = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
 
                 for(Socios item : socios){
-                    if(Long.parseLong(cadenaAccionista) == item.getCuit())
+                    if(Long.parseLong(cadenaAccionista) == item.getCuit() && item.getAccionistas() == null)
                     {
                         FrmCargarAccionistas frame = new FrmCargarAccionistas(self, "Sistema de Gestion de Riesgo");
                         frame.setVisible(true);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Ya se cargaron los accionistas al socio");
                     }
                 }
             }
@@ -74,10 +77,13 @@ public class FrmSocios extends JDialog{
                 cadenaDocumento = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
 
                 for(Socios item : socios){
-                    if(Long.parseLong(cadenaAccionista) == item.getCuit())
+                    if(Long.parseLong(cadenaAccionista) == item.getCuit() && item.getDocumentos() == null)
                     {
                         FrmCargarDocumentos frame = new FrmCargarDocumentos(self, "Sistema de Gestion de Riesgo");
                         frame.setVisible(true);
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Ya se la documentación al socio");
                     }
                 }
             }

@@ -70,6 +70,17 @@ public class FrmCargarSocios extends JDialog{
                 }
 
                 JOptionPane.showMessageDialog(null, "Se dio de alta exitosamente el socio");
+
+                tbsocioID.setText("");
+                tbCUIT.setText("");
+                tbRazonSocial.setText("");
+                cbTipoEmpresa.setSelectedIndex(-1);
+                tbActividad.setText("");
+                tbDireccion.setText("");
+                tbTelefono.setText("");
+                tbCorreo.setText("");
+                tbFecha.setText("");
+                cbEstadoSocio.setSelectedIndex(-1);
             }
         });
     }

@@ -66,10 +66,9 @@ public class FrmCargarDocumentos extends JDialog{
 
                             Integer valor = Integer.parseInt(tbDocumentoID.getText());
 
-                            if(valor == item2.getDocumentoID()){
-                                item.setDocumentos(item2);
+                            if(valor.equals(item2.getDocumentoID())){
 
-                                socios.add(item);
+                                item.setDocumentos(item2);
                             }
                         }
                         break;
@@ -77,6 +76,12 @@ public class FrmCargarDocumentos extends JDialog{
                 }
 
                 JOptionPane.showMessageDialog(null, "Se dio de alta exitosamente el documento");
+
+                tbDocumentoID.setText("");
+                tbFechaRecepcion.setText("");
+                tbUsuario.setText("");
+                cbTipoDocumento.setSelectedIndex(-1);
+                cbEstadoDocumento.setSelectedIndex(-1);
             }
         });
     }
