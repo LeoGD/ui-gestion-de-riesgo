@@ -1,8 +1,6 @@
 package vista;
 
 import modelo.Aporte;
-import modelo.FondoDeRiesgo;
-import modelo.Socios;
 
 import javax.swing.*;
 import java.awt.*;

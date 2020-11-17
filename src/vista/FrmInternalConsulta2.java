@@ -5,6 +5,11 @@ import javax.swing.*;
 public class FrmInternalConsulta2 extends JInternalFrame{
 
     private JPanel pnlPrincipal;
+    private JTextField tbCUIT;
+    private JTextField tbFechaHasta;
+    private JTextField tbFechaDesde;
+    private JButton btnConsulta;
+    private JTable tOperacionesAvaladas;
 
     public FrmInternalConsulta2(String titulo)
     {

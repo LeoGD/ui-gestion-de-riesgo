@@ -5,6 +5,10 @@ import javax.swing.*;
 public class FrmInternalConsulta5 extends JInternalFrame{
 
     private JPanel pnlPrincipal;
+    private JTextField tbCUIT;
+    private JButton btnConsulta;
+    private JTextField tbUtilizadoDeLinea;
+    private JTextField tbMonto;
 
     public FrmInternalConsulta5(String titulo)
     {
