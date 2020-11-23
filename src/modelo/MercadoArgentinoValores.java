@@ -2,11 +2,14 @@ package modelo;
 
 public class MercadoArgentinoValores {
 
-    public MercadoArgentinoValores() {
+    public MercadoArgentinoValores(boolean presentado) {
+
+        this.presentado = presentado;
     }
 
-    public void presentarCheques() {
-        // TODO implement here
-    }
+    private boolean presentado;
 
+    public boolean isPresentado() { return presentado; }
+
+    public void setPresentado(boolean presentado) { this.presentado = presentado; }
 }

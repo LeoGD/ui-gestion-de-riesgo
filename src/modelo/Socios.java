@@ -9,7 +9,8 @@ public class Socios {
 
     public Socios(Integer socioID, EstadoSocio estado, Long cuit, String razonSocial, Date fchInicioActividades,
                   TipoEmpresa tipoEmpresa, String actividadPrincipal, String direccion, Long telefono, String mail, List<LineaDeCredito> linea,
-                  List<Accionista> accionistas, Documento documentos, Accion acciones, Aporte aportes){
+                  List<Accionista> accionistas, Documento documentos, Accion acciones, List<Aporte> aportes, InformacionCheques tramitecheque,
+                  InformacionCuentasCorrientesComerciales tramiteCCC, InformacionPrestamos tramiteprestamo){
 
         this.socioID = socioID;
         this.estado = estado;
@@ -26,6 +27,9 @@ public class Socios {
         this.documentos = documentos;
         this.acciones = acciones;
         this.aportes = aportes;
+        this.tramitecheque = tramitecheque;
+        this.tramiteCCC = tramiteCCC;
+        this.tramiteprestamo = tramiteprestamo;
     }
 
     private Integer socioID;
@@ -42,7 +46,10 @@ public class Socios {
     private List<Accionista> accionistas;
     private Documento documentos;
     private Accion acciones;
-    private Aporte aportes;
+    private List<Aporte> aportes;
+    private InformacionCheques tramitecheque;
+    private InformacionCuentasCorrientesComerciales tramiteCCC;
+    private InformacionPrestamos tramiteprestamo;
 
     public Accion getAcciones() { return acciones; }
 
@@ -68,9 +75,7 @@ public class Socios {
         return socioID;
     }
 
-    public void setSocioID(Integer socioID) {
-        this.socioID = socioID;
-    }
+    public void setSocioID(Integer socioID) { this.socioID = socioID; }
 
     public EstadoSocio getEstado() {
         return estado;
@@ -144,87 +149,19 @@ public class Socios {
         this.mail = mail;
     }
 
+    public List<Aporte> getAportes() { return aportes; }
 
+    public void setAportes(List<Aporte> aportes) { this.aportes = aportes; }
 
+    public InformacionCheques getTramitecheque() { return tramitecheque; }
 
+    public void setTramitecheque(InformacionCheques tramitecheque) { this.tramitecheque = tramitecheque; }
 
+    public InformacionCuentasCorrientesComerciales getTramiteCCC() { return tramiteCCC; }
 
+    public void setTramiteCCC(InformacionCuentasCorrientesComerciales tramiteCCC) { this.tramiteCCC = tramiteCCC; }
 
+    public InformacionPrestamos getTramiteprestamo() { return tramiteprestamo; }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * 
-     */
-    public void getIdSocio() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void gettipoEmpresa() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void getTasaDescuento() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void getTipoOperacion() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void getNombreOperacion() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void getMonto() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-
-    public void getEstadoSocio() {
-        // TODO implement here
-    }
-
+    public void setTramiteprestamo(InformacionPrestamos tramiteprestamo) { this.tramiteprestamo = tramiteprestamo; }
 }

@@ -1,9 +1,7 @@
 package controlador;
 
-import modelo.InformacionCheques;
-import modelo.Operacion;
-import modelo.Socios;
-import modelo.TipoEmpresa;
+import modelo.*;
+
 import java.util.*;
 
 import static vista.FrmPrincipal.*;
@@ -20,44 +18,66 @@ public class SociosController {
         // TODO implement here
     }
 
-    public Integer totalComisionesDiarias(Date fechaIngresada){
-
-        /*for(Operacion item : operaciones){
-            if(fechaIngresada.equals(item.))
-        }*/
-        return 0;
-    }
-
-    public void operacionesAvaladas(Long CUIT, Date fchDesde, Date fchHasta) {
+    public List<Operacion> operacionesAvaladas(Long CUIT, Date fchDesde, Date fchHasta) {
         // TODO implement here
+        List<Operacion> operacionesAvaladas = new ArrayList<Operacion>();
+
+        for(Socios item : socios) {
+            if (CUIT.equals(item.getCuit())) {
+                for (LineaDeCredito item2 : item.getLinea()) {
+                    if(item2.getTipoOperaciones().getEstadoOperacion().equals(EstadoOperacion.MONETIZADO)){
+                        operacionesAvaladas.add(item2.getTipoOperaciones());
+                    }
+                }
+                break;
+            }
+        }
+
+        return operacionesAvaladas;
     }
 
-    public void consultaRiesgoVivoyTotal(Integer socioID) {
-        // TODO implement here
+    public LineaDeCredito consultaRiesgoVivoyTotal(Long CUIT) {
+
+        LineaDeCredito consulta = new LineaDeCredito();
+        Integer acumuladoTotalUtilizado = 0;
+
+        for(Socios item : socios){
+            if(item.getLinea().equals(CUIT)){
+                for(LineaDeCredito item2 : item.getLinea()){
+                    acumuladoTotalUtilizado += item2.getUtilizadoDeLinea();
+                }
+            }
+        }
+        return consulta;
     }
 
-    public void calcularPromedioDescuentoYTotal(Date fchDesde, Date fchHasta, TipoEmpresa tipo) {
-        // TODO implement here
-    }
+    public DatosConsulta calcularPromedioDescuentoYTotal(Date fchDesde, Date fchHasta, TipoEmpresa tipo) {
 
-    public void realizarOperacion(Integer socioID, Integer operacionID) {
-        // TODO implement here
-    }
+        DatosConsulta consulta = new DatosConsulta();
+        Integer cantidadTasa = 0;
+        float totalTasa = 0;
+        float promedioTasa = 0;
+        Integer cantidadCheques = 0;
 
-    public void calcularOperacionChequeFirmante() {
-        // TODO implement here
-    }
+        for(Socios item : socios){
+            if(item.getTipoEmpresa().equals(tipo)){
+                for(LineaDeCredito item2 : item.getLinea()){
 
-    public void calcularOperacionesPorFactura(Integer socioID) {
-        // TODO implement here
-    }
+                    if(item2.getTipoOperaciones().getTipoOperacion().equals(TipoOperacion.UNO)){
+                        cantidadCheques++;
+                    }
 
-    public void verificarSocio(Integer socioID) {
-        // TODO implement here
-    }
+                    totalTasa += item2.getTipoOperaciones().getTasaDescuento();
+                    cantidadTasa++;
+                }
+                promedioTasa = totalTasa/cantidadTasa;
+                break;
+            }
+        }
 
-    public void verificarEmpresasCompartidas() {
-        // TODO implement here
-    }
+        consulta.setPromedioTasa(promedioTasa);
+        consulta.setTotalOperado(cantidadCheques);
 
+        return consulta;
+    }
 }

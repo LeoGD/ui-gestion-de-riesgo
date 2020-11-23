@@ -2,6 +2,8 @@ package modelo;
 
 public class FondoDeRiesgo {
 
+    public FondoDeRiesgo(){}
+
     public FondoDeRiesgo(Integer monto) {
 
         this.monto = monto;

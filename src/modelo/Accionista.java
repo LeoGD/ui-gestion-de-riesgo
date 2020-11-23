@@ -23,9 +23,7 @@ public class Accionista {
         return porcentajeParticipacion;
     }
 
-    public void setPorcentajeParticipacion(float porcentajeParticipacion) {
-        this.porcentajeParticipacion = porcentajeParticipacion;
-    }
+    public void setPorcentajeParticipacion(float porcentajeParticipacion) { this.porcentajeParticipacion = porcentajeParticipacion; }
 
     public Integer getAccionistaID() {
         return accionistaID;
@@ -47,7 +45,5 @@ public class Accionista {
         return razonSocialAccionista;
     }
 
-    public void setRazonSocialAccionista(String razonSocialAccionista) {
-        this.razonSocialAccionista = razonSocialAccionista;
-    }
+    public void setRazonSocialAccionista(String razonSocialAccionista) { this.razonSocialAccionista = razonSocialAccionista; }
 }

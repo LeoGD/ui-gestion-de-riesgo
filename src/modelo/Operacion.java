@@ -33,76 +33,89 @@ public class Operacion {
     private Integer cuotasImpagas3;
     private float TasaDescuento;
 
-
-
-
-
-    /**
-     * 
-     */
-    public Socios TipoB;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * 
-     */
-    public void getoperacionID() {
-        // TODO implement here
+    public Integer getOperacionID() {
+        return operacionID;
     }
 
-    /**
-     * 
-     */
-    public void gettipoOperacion() {
-        // TODO implement here
+    public void setOperacionID(Integer operacionID) {
+        this.operacionID = operacionID;
     }
 
-    /**
-     * 
-     */
-    public void getporcentajeComision() {
-        // TODO implement here
+    public TipoOperacion getTipoOperacion() {
+        return tipoOperacion;
     }
 
-    /**
-     * 
-     */
-    public void getestadoOperacion() {
-        // TODO implement here
+    public void setTipoOperacion(TipoOperacion tipoOperacion) {
+        this.tipoOperacion = tipoOperacion;
     }
 
-    /**
-     * 
-     */
-    public void getTasaDescuento() {
-        // TODO implement here
+    public NombreOperacion getNombreOperacion() {
+        return nombreOperacion;
     }
 
-    /**
-     * 
-     */
-    public void getNombreOperacion() {
-        // TODO implement here
+    public void setNombreOperacion(NombreOperacion nombreOperacion) {
+        this.nombreOperacion = nombreOperacion;
     }
 
-    /**
-     * 
-     */
-    public void getImporteTotal() {
-        // TODO implement here
+    public EstadoOperacion getEstadoOperacion() {
+        return estadoOperacion;
     }
 
+    public void setEstadoOperacion(EstadoOperacion estadoOperacion) {
+        this.estadoOperacion = estadoOperacion;
+    }
+
+    public float getPorcentajeComision() {
+        return porcentajeComision;
+    }
+
+    public void setPorcentajeComision(float porcentajeComision) {
+        this.porcentajeComision = porcentajeComision;
+    }
+
+    public EstadoComision getEstadoComision() {
+        return estadoComision;
+    }
+
+    public void setEstadoComision(EstadoComision estadoComision) {
+        this.estadoComision = estadoComision;
+    }
+
+    public Certificados getCertificadoGarantia() {
+        return certificadoGarantia;
+    }
+
+    public void setCertificadoGarantia(Certificados certificadoGarantia) { this.certificadoGarantia = certificadoGarantia; }
+
+    public Integer getImporteTotal1() {
+        return importeTotal1;
+    }
+
+    public void setImporteTotal1(Integer importeTotal1) {
+        this.importeTotal1 = importeTotal1;
+    }
+
+    public Integer getImporteUtilizado2() {
+        return importeUtilizado2;
+    }
+
+    public void setImporteUtilizado2(Integer importeUtilizado2) {
+        this.importeUtilizado2 = importeUtilizado2;
+    }
+
+    public Integer getCuotasImpagas3() {
+        return cuotasImpagas3;
+    }
+
+    public void setCuotasImpagas3(Integer cuotasImpagas3) {
+        this.cuotasImpagas3 = cuotasImpagas3;
+    }
+
+    public float getTasaDescuento() {
+        return TasaDescuento;
+    }
+
+    public void setTasaDescuento(float tasaDescuento) {
+        TasaDescuento = tasaDescuento;
+    }
 }

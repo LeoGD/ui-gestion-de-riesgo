@@ -1,6 +1,13 @@
 package vista;
 
 import modelo.*;
+import vista.ConsultasGenerales.FrmConsultas;
+import vista.LineaDeCredito.FrmLineas;
+import vista.Operaciones.FrmOperacionesProtectores;
+import vista.Operaciones.FrmOperacionesTipo1;
+import vista.Operaciones.FrmOperacionesTipo2;
+import vista.Operaciones.FrmOperacionesTipo3;
+import vista.Socios.FrmSocios;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +36,11 @@ public class FrmPrincipal extends JFrame {
     public static final List<InformacionCuentasCorrientesComerciales> CCC = new ArrayList<InformacionCuentasCorrientesComerciales>();
     public static final List<InformacionPrestamos> prestamos = new ArrayList<InformacionPrestamos>();
     public static final List<Aporte> aportes = new ArrayList<Aporte>();
-    public static final FondoDeRiesgo fondo = null;
+    public static final FondoDeRiesgo fondo = new FondoDeRiesgo();
+    public static final String cadenaOperacion = new String();
+    public static final List<Accion> acciones = new ArrayList<Accion>();
+    public static final List<Certificados> certificados = new ArrayList<Certificados>();
+    public static Integer contadorCertificados = 0;
 
     private FrmPrincipal self;
 
@@ -79,35 +90,42 @@ public class FrmPrincipal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
-                String cadena = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
+                String cadenaOperacion = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
+                Integer contador = 0;
 
                 for(Socios item : socios){
 
-                    if(!cadena.equals("") && Long.parseLong(cadena) == item.getCuit()){
+                    if(!cadenaOperacion.equals("") && Long.parseLong(cadenaOperacion) == item.getCuit()){
 
                         if(item.getEstado().equals(EstadoSocio.POSTULANTE_A_SOCIO_PARTICIPE)  || item.getEstado().equals(EstadoSocio.POSTULANTE_A_SOCIO_PROTECTOR)){
                             JOptionPane.showMessageDialog(null, "El socio ingresado no es un socio pleno. Necesita realizar los tramites correspondientes a las acciones para poder operar");
                         }
-                        if(item.getEstado().equals(EstadoSocio.POSTULANTE_A_SOCIO_PARTICIPE)){
-                            if(item.getLinea().equals(lineas1)){
-                                FrmOperacionesTipo1 frame = new FrmOperacionesTipo1(self, "Sistema de Gestion de Riesgo");
-                                frame.setVisible(true);
+                        if(item.getEstado().equals(EstadoSocio.SOCIO_PLENO_PARTICIPE)){
+
+                            if(item.getLinea().get(contador).getEstado().equals("Aprobada")) {
+
+                                if (item.getLinea().equals(lineas1)) {
+                                    FrmOperacionesTipo1 frame = new FrmOperacionesTipo1(self, "Sistema de Gestion de Riesgo");
+                                    frame.setVisible(true);
+                                } else if (item.getLinea().equals(lineas2)) {
+                                    FrmOperacionesTipo2 frame = new FrmOperacionesTipo2(self, "Sistema de Gestion de Riesgo");
+                                    frame.setVisible(true);
+                                } else if (item.getLinea().equals(lineas3)) {
+                                    FrmOperacionesTipo3 frame = new FrmOperacionesTipo3(self, "Sistema de Gestion de Riesgo");
+                                    frame.setVisible(true);
+                                }
                             }
-                            else if(item.getLinea().equals(lineas2)){
-                                FrmOperacionesTipo2 frame = new FrmOperacionesTipo2(self, "Sistema de Gestion de Riesgo");
-                                frame.setVisible(true);
-                            }
-                            else if(item.getLinea().equals(lineas3)){
-                                FrmOperacionesTipo3 frame = new FrmOperacionesTipo3(self, "Sistema de Gestion de Riesgo");
-                                frame.setVisible(true);
+                            else{
+                                JOptionPane.showMessageDialog(null, "La linea de credito del socio no esta aprobada");
                             }
                         }
                         if(item.getEstado().equals(EstadoSocio.SOCIO_PLENO_PROTECTOR)){
+
                             FrmOperacionesProtectores frame = new FrmOperacionesProtectores(self, "Sistema de Gestion de Riesgo", item.getCuit());
                             frame.setVisible(true);
                         }
-
                     }
+                    contador++;
                 }
             }
         });
@@ -138,20 +156,23 @@ public class FrmPrincipal extends JFrame {
         operaciones.add(new Operacion(6666, TipoOperacion.TRES, NombreOperacion.PRÉSTAMOS, EstadoOperacion.INGRESADO,
                 0.09f, EstadoComision.Calculada, null, 0, 0, 0, 0.05f));
 
-        lineas1.add(new LineaDeCredito(1111, 20000, "16/08/2021",
+        lineas1.add(new LineaDeCredito(1111, 20000, "16/08/2023",
                 "Vigente", operaciones.get(0), 0));
-        lineas1.add(new LineaDeCredito(2222, 42000, "16/08/2021",
+        lineas1.add(new LineaDeCredito(2222, 42000, "16/08/2023",
                 "Vigente", operaciones.get(1), 0));
-        lineas1.add(new LineaDeCredito(3333, 37000, "16/08/2021",
+        lineas1.add(new LineaDeCredito(3333, 37000, "16/08/2023",
                 "Vigente", operaciones.get(2), 0));
 
-        lineas2.add(new LineaDeCredito(1111, 60000, "16/08/2021",
+        lineas2.add(new LineaDeCredito(1111, 60000, "16/08/2023",
                 "Vigente", operaciones.get(3), 0));
-        lineas2.add(new LineaDeCredito(2222, 85000, "16/08/2021",
+        lineas2.add(new LineaDeCredito(2222, 85000, "16/08/2023",
                 "Vigente", operaciones.get(4), 0));
 
-        lineas3.add(new LineaDeCredito(1111, 40000, "16/08/2021",
+        lineas3.add(new LineaDeCredito(1111, 40000, "16/08/2023",
                 "Vigente", operaciones.get(5), 0));
+
+        acciones.add(new Accion(1111, TipoAccion.A, 150, 200));
+        acciones.add(new Accion(2222, TipoAccion.B, 180, 300));
 
         frame.setVisible(true);
     }

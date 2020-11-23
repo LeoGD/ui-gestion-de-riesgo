@@ -2,7 +2,9 @@ package modelo;
 
 public class Accion {
 
-    public Accion(Integer accionID, TipoAccion AccionTipo, float valorUnitario, Integer cantidad) {
+    public Accion(){}
+
+    public Accion(Integer accionID, TipoAccion AccionTipo, Integer valorUnitario, Integer cantidad) {
         this.accionID = accionID;
         this.AccionTipo = AccionTipo;
         this.valorUnitario = valorUnitario;
@@ -11,7 +13,7 @@ public class Accion {
 
     private Integer accionID;
     private TipoAccion AccionTipo;
-    private float valorUnitario;
+    private Integer valorUnitario;
     private Integer cantidad;
 
     public Integer getAccionID() {
@@ -34,7 +36,7 @@ public class Accion {
         return valorUnitario;
     }
 
-    public void setValorUnitario(float valorUnitario) {
+    public void setValorUnitario(Integer valorUnitario) {
         this.valorUnitario = valorUnitario;
     }
 
