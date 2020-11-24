@@ -170,19 +170,19 @@ public class FrmPrincipal extends JFrame {
                 0.04f, EstadoComision.Calculada, null, 0, 0, 0, 0.05f));
 
         lineas1.add(new LineaDeCredito(1111, 20000, "16/08/2023",
-                "Vigente", operaciones.get(0), 0));
+                "Vigente", operaciones.get(0), 0, new RiesgoVivo(1111, 0)));
         lineas1.add(new LineaDeCredito(2222, 42000, "16/08/2023",
-                "Vigente", operaciones.get(1), 0));
+                "Vigente", operaciones.get(1), 0, new RiesgoVivo(2222, 0)));
         lineas1.add(new LineaDeCredito(3333, 37000, "16/08/2023",
-                "Vigente", operaciones.get(2), 0));
+                "Vigente", operaciones.get(2), 0, new RiesgoVivo(3333, 0)));
 
         lineas2.add(new LineaDeCredito(1111, 60000, "16/08/2023",
-                "Vigente", operaciones.get(3), 0));
+                "Vigente", operaciones.get(3), 0, new RiesgoVivo(4444, 0)));
         lineas2.add(new LineaDeCredito(2222, 85000, "16/08/2023",
-                "Vigente", operaciones.get(4), 0));
+                "Vigente", operaciones.get(4), 0, new RiesgoVivo(5555, 0)));
 
         lineas3.add(new LineaDeCredito(1111, 40000, "16/08/2023",
-                "Vigente", operaciones.get(5), 0));
+                "Vigente", operaciones.get(5), 0, new RiesgoVivo(6666, 0)));
 
         acciones.add(new Accion(1111, TipoAccion.A, 150, 200));
         acciones.add(new Accion(2222, TipoAccion.B, 180, 300));

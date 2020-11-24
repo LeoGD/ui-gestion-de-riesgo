@@ -44,17 +44,21 @@ public class SociosController {
 
     public LineaDeCredito consultaRiesgoVivoyTotal(Long CUIT) {
 
-        LineaDeCredito consulta = new LineaDeCredito();
+        LineaDeCredito consulta = null;
         Integer acumuladoTotalUtilizado = 0;
+        Integer RiesgoVivoSocio = 0;
 
         for(Socios item : socios){
-            if(item.getLinea().equals(CUIT)){
-                for(LineaDeCredito item2 : item.getLinea()){
-                    acumuladoTotalUtilizado += item2.getUtilizadoDeLinea();
+            for(LineaDeCredito item2 : item.getLinea()){
+                if(item.getCuit().equals(CUIT)) {
+                    consulta = item2;
+                    acumuladoTotalUtilizado = acumuladoTotalUtilizado + item2.getUtilizadoDeLinea();
+                    RiesgoVivoSocio = RiesgoVivoSocio + item2.getRiesgoVivo().getMonto();
                 }
             }
         }
 
+        consulta.getRiesgoVivo().setMonto(RiesgoVivoSocio);
         consulta.setUtilizadoDeLinea(acumuladoTotalUtilizado);
 
         return consulta;

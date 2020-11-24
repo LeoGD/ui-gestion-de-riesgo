@@ -129,6 +129,17 @@ public class FrmCargaPrestamos extends JDialog{
                             contadorfactura++;
 
                             socio.getTramiteprestamo().setFactura(new Factura(contadorfactura));
+
+                            if(socio.getTramiteprestamo().getEstadoOperacion().equals(EstadoOperacion.MONETIZADO)){
+                                for(LineaDeCredito item3 : lineas3) {
+                                    item3.getRiesgoVivo().setMonto(riesgovivo.getMonto() + socio.getTramiteprestamo().getImporteTotal());
+                                }
+                            }
+                            else if(socio.getTramiteprestamo().getEstadoOperacion().equals(EstadoOperacion.CON_CERTIFICADO_EMITIDO)){
+                                for(LineaDeCredito item3 : lineas3){
+                                    item3.setUtilizadoDeLinea(item3.getUtilizadoDeLinea() + riesgovivo.getMonto());
+                                }
+                            }
                         }
                     }
 

@@ -1,23 +1,18 @@
 package modelo.Classes;
 
-/**
- * 
- */
 public class LineaDeCredito {
 
-    /**
-     * Default constructor
-     */
     public LineaDeCredito(){}
 
     public LineaDeCredito(Integer lineaCreditoID, Integer monto, String fechaVigencia, String estado, Operacion tipoOperaciones,
-                          Integer utilizadoDeLinea) {
+                          Integer utilizadoDeLinea, RiesgoVivo riesgoVivo) {
         this.lineaCreditoID = lineaCreditoID;
         this.monto = monto;
         this.fechaVigencia = fechaVigencia;
         this.estado = estado;
         this.tipoOperaciones = tipoOperaciones;
         this.utilizadoDeLinea = utilizadoDeLinea;
+        this.riesgoVivo = riesgoVivo;
     }
 
     private Integer lineaCreditoID;
@@ -26,6 +21,7 @@ public class LineaDeCredito {
     private String estado;
     private Operacion tipoOperaciones;
     private Integer utilizadoDeLinea;
+    private RiesgoVivo riesgoVivo;
 
     public Integer getLineaCreditoID() {
         return lineaCreditoID;
@@ -74,4 +70,8 @@ public class LineaDeCredito {
     public void setUtilizadoDeLinea(Integer utilizadoDeLinea) {
         this.utilizadoDeLinea = utilizadoDeLinea;
     }
+
+    public RiesgoVivo getRiesgoVivo() { return riesgoVivo; }
+
+    public void setRiesgoVivo(RiesgoVivo riesgoVivo) { this.riesgoVivo = riesgoVivo; }
 }

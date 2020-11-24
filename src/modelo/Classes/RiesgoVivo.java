@@ -8,15 +8,15 @@ public class RiesgoVivo {
 
     }
 
-    public RiesgoVivo(Integer riesgoVivoID, List<String> tipoOperacion, Integer monto) {
+    public RiesgoVivo(Integer riesgoVivoID, Integer monto) {
 
         this.riesgoVivoID = riesgoVivoID;
-        this.tipoOperacion = tipoOperacion;
+        //this.tipoOperacion = tipoOperacion;
         this.monto = monto;
     }
 
     private Integer riesgoVivoID;
-    private List<String> tipoOperacion;
+    //private List<String> tipoOperacion;
     private Integer monto = 0;
 
     public Integer getRiesgoVivoID() {
@@ -27,13 +27,13 @@ public class RiesgoVivo {
         this.riesgoVivoID = riesgoVivoID;
     }
 
-    public List<String> getTipoOperacion() {
+    /*public List<String> getTipoOperacion() {
         return tipoOperacion;
     }
 
     public void setTipoOperacion(List<String> tipoOperacion) {
         this.tipoOperacion = tipoOperacion;
-    }
+    }*/
 
     public Integer getMonto() {
         return monto;

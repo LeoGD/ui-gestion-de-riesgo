@@ -1,9 +1,6 @@
 package vista.Operaciones.OperacionesTipo2;
 
-import modelo.Classes.Certificados;
-import modelo.Classes.Factura;
-import modelo.Classes.InformacionCuentasCorrientesComerciales;
-import modelo.Classes.Socios;
+import modelo.Classes.*;
 import modelo.Enum.EstadoComision;
 import modelo.Enum.EstadoOperacion;
 
@@ -97,7 +94,14 @@ public class FrmCargaCCC extends JDialog{
                             socio.getTramiteCCC().setFactura(new Factura(contadorfactura));
 
                             if(socio.getTramiteCCC().getEstadoOperacion().equals(EstadoOperacion.MONETIZADO)){
-                                riesgovivo.setMonto(riesgovivo.getMonto() + socio.getTramiteCCC().getImporteTotal());
+                                for(LineaDeCredito item3 : lineas2) {
+                                    item3.getRiesgoVivo().setMonto(riesgovivo.getMonto() + socio.getTramiteCCC().getImporteTotal());
+                                }
+                            }
+                            else if(socio.getTramiteCCC().getEstadoOperacion().equals(EstadoOperacion.CON_CERTIFICADO_EMITIDO)){
+                                for(LineaDeCredito item3 : lineas2){
+                                    item3.setUtilizadoDeLinea(item3.getUtilizadoDeLinea() + riesgovivo.getMonto());
+                                }
                             }
                         }
                     }

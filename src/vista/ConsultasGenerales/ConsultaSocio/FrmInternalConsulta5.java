@@ -43,10 +43,9 @@ public class FrmInternalConsulta5 extends JInternalFrame{
             public void actionPerformed(ActionEvent e) {
                 LineaDeCredito consulta;
 
-                consulta = socioControlador.consultaRiesgoVivoyTotal(Long.parseLong(tbCUIT.getText()));
+                consulta = socioControlador.consultaRiesgoVivoyTotal(Long.parseLong(cbCUIT.getSelectedItem().toString()));
 
-                //tbRiesgoVivo.setText(consulta.getMonto().toString());
-                tbRiesgoVivo.setText("0");
+                tbRiesgoVivo.setText(consulta.getRiesgoVivo().getMonto().toString());
                 tbUtilizadoDeLinea.setText(consulta.getUtilizadoDeLinea().toString());
             }
         });

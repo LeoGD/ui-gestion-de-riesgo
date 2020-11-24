@@ -97,7 +97,14 @@ public class FrmCargaChequesPagare extends  JDialog{
                             socio.getTramitecheque().setFactura(new Factura(contadorfactura));
 
                             if (socio.getTramitecheque().getEstadoOperacion().equals(EstadoOperacion.MONETIZADO)) {
-                                riesgovivo.setMonto(riesgovivo.getMonto() + socio.getTramitecheque().getMontoCheque());
+                                for(LineaDeCredito item3 : lineas1) {
+                                    item3.getRiesgoVivo().setMonto(riesgovivo.getMonto() + socio.getTramitecheque().getMontoCheque());
+                                }
+                            }
+                            else if(socio.getTramitecheque().getEstadoOperacion().equals(EstadoOperacion.CON_CERTIFICADO_EMITIDO)){
+                                for(LineaDeCredito item3 : lineas1){
+                                    item3.setUtilizadoDeLinea(item3.getUtilizadoDeLinea() + riesgovivo.getMonto());
+                                }
                             }
                         }
                     }
