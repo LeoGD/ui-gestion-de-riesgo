@@ -1,13 +1,14 @@
 package vista.Operaciones.OperacionesProtectores;
 
-import modelo.*;
+import modelo.Classes.Aporte;
+import modelo.Classes.Socios;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import static vista.FrmPrincipal.*;
 
@@ -18,6 +19,9 @@ public class FrmAporte extends JDialog{
     private JTextField tbMonto;
     private JButton btnEnviar;
     private Long cuit;
+    private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+    private Calendar fecha = Calendar.getInstance();
+    private String formatedDate;
 
     public FrmAporte(Window owner, String titulo, Long cuitSocio)
     {
@@ -31,6 +35,10 @@ public class FrmAporte extends JDialog{
         asociarEventos();
 
         this.cuit = cuitSocio;
+
+        tbAporteID.setText(IDApo.toString());
+        formatedDate = fecha.get(Calendar.DATE) + "/" + (fecha.get(Calendar.MONTH) + 1) + "/" + fecha.get(Calendar.YEAR);
+        tbFechaAporte.setText(formatedDate);
     }
 
     private void asociarEventos(){
@@ -38,45 +46,59 @@ public class FrmAporte extends JDialog{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-                Socios socioAporte = null;
 
-                for(Socios item : socios){
-                    if(item.getCuit().equals(cuit)){
+                Socios socioAporte = null;
+                boolean validacionFDR = false;
+
+                if (Integer.parseInt(tbMonto.getText()) > fondo.getMonto() * 0.05) {
+                    validacionFDR = true;
+                }
+
+                for (Socios item : socios) {
+                    if (item.getCuit().equals(cuit)) {
                         socioAporte = item;
                     }
                 }
 
                 fondo.setMonto(fondo.getMonto() + Integer.parseInt(tbMonto.getText()));
 
-                try {
+                if (!validacionFDR) {
                     aportes.add(new Aporte(
                             Integer.parseInt(tbAporteID.getText()),
                             socioAporte,
                             Integer.parseInt(tbMonto.getText()),
-                            formato.parse(tbFechaAporte.getText()),
+                            formatedDate,
                             null,
                             fondo
                     ));
-                } catch (ParseException parseException) {
-                    parseException.printStackTrace();
-                }
 
-                if(socioAporte.getCuit().equals(cuit)) {
-                    for (Aporte item2 : aportes) {
+                    if (socioAporte.getCuit().equals(cuit)) {
+                        for (Aporte item2 : aportes) {
 
-                        Integer valor = Integer.parseInt(tbAporteID.getText());
+                            Integer valor = Integer.parseInt(tbAporteID.getText());
 
-                        if(valor.equals(item2.getAporteID())){
+                            if (valor.equals(item2.getAporteID())) {
 
-                            socioAporte.setAportes(aportes);
+                                socioAporte.setAportes(aportes);
 
-                            break;
+                                break;
+                            }
                         }
                     }
-                }
 
-                JOptionPane.showMessageDialog(null, "Se realizó con exito la operacion");
+                    JOptionPane.showMessageDialog(null, "Se realizó con exito la operacion");
+
+                    IDApo = IDApo + 1111;
+
+                    tbAporteID.setText(IDApo.toString());
+                    tbMonto.setText("");
+                    tbFechaAporte.setText(formatedDate);
+                }
+                else if(validacionFDR){
+                    JOptionPane.showMessageDialog(null, "No es posible operar con montos mayores al 5% del fondo de riesgo");
+
+                    tbMonto.setText("");
+                }
             }
         });
     }

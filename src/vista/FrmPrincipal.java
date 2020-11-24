@@ -1,6 +1,7 @@
 package vista;
 
-import modelo.*;
+import modelo.Classes.*;
+import modelo.Enum.*;
 import vista.ConsultasGenerales.FrmConsultas;
 import vista.LineaDeCredito.FrmLineas;
 import vista.Operaciones.FrmOperacionesProtectores;
@@ -37,10 +38,22 @@ public class FrmPrincipal extends JFrame {
     public static final List<InformacionPrestamos> prestamos = new ArrayList<InformacionPrestamos>();
     public static final List<Aporte> aportes = new ArrayList<Aporte>();
     public static final FondoDeRiesgo fondo = new FondoDeRiesgo();
-    public static final String cadenaOperacion = new String();
     public static final List<Accion> acciones = new ArrayList<Accion>();
     public static final List<Certificados> certificados = new ArrayList<Certificados>();
+    public static final List<Cambios> cambios = new ArrayList<Cambios>();
+    public static final RiesgoVivo riesgovivo = new RiesgoVivo(){};
     public static Integer contadorCertificados = 0;
+    public static Integer contadorfactura = 0;
+    public static Integer contadorCambio = 0;
+    public static String cadenaOperacion = null;
+    public static Integer IDSocio = 1111;
+    public static Integer IDAccionista = 1111;
+    public static Integer IDDocumento = 1111;
+    public static Integer IDOpe = 1111;
+    public static Integer IDCheque = 1111;
+    public static Integer IDCuentaCorriente = 1111;
+    public static Integer IDPrestamo = 1111;
+    public static Integer IDApo = 1111;
 
     private FrmPrincipal self;
 
@@ -90,7 +103,7 @@ public class FrmPrincipal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
 
-                String cadenaOperacion = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
+                cadenaOperacion = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
                 Integer contador = 0;
 
                 for(Socios item : socios){
@@ -144,17 +157,17 @@ public class FrmPrincipal extends JFrame {
         FrmPrincipal frame = new FrmPrincipal("Sistema de Gestion de Riesgo");
 
         operaciones.add(new Operacion(1111, TipoOperacion.UNO, NombreOperacion.CHEQUES_PROPIOS, EstadoOperacion.INGRESADO,
-                0.15f, EstadoComision.Calculada, null, 0, 0, 0, 0.05f));
+                0.03f, EstadoComision.Calculada, null, 0, 0, 0, 0.05f));
         operaciones.add(new Operacion(2222, TipoOperacion.UNO, NombreOperacion.CHEQUES_DE_TERCEROS, EstadoOperacion.INGRESADO,
-                0.13f, EstadoComision.Calculada, null, 0, 0, 0, 0.1f));
+                0.03f, EstadoComision.Calculada, null, 0, 0, 0, 0.1f));
         operaciones.add(new Operacion(3333, TipoOperacion.UNO, NombreOperacion.PAGARÉ_BURSATIL, EstadoOperacion.INGRESADO,
-                0.2f, EstadoComision.Calculada, null, 0, 0, 0, 0.05f));
+                0.03f, EstadoComision.Calculada, null, 0, 0, 0, 0.05f));
         operaciones.add(new Operacion(4444, TipoOperacion.DOS, NombreOperacion.CUENTAS_CORRIENTES_COMERCIALES, EstadoOperacion.INGRESADO,
-                0.05f, EstadoComision.Calculada, null, 0, 0, 0, 0.05f));
+                0.03f, EstadoComision.Calculada, null, 0, 0, 0, 0.05f));
         operaciones.add(new Operacion(5555, TipoOperacion.DOS, NombreOperacion.TARJETA_DE_CREDITO, EstadoOperacion.INGRESADO,
-                0.07f, EstadoComision.Calculada, null, 0, 0, 0, 0.05f));
+                0.03f, EstadoComision.Calculada, null, 0, 0, 0, 0.05f));
         operaciones.add(new Operacion(6666, TipoOperacion.TRES, NombreOperacion.PRÉSTAMOS, EstadoOperacion.INGRESADO,
-                0.09f, EstadoComision.Calculada, null, 0, 0, 0, 0.05f));
+                0.04f, EstadoComision.Calculada, null, 0, 0, 0, 0.05f));
 
         lineas1.add(new LineaDeCredito(1111, 20000, "16/08/2023",
                 "Vigente", operaciones.get(0), 0));
@@ -173,6 +186,8 @@ public class FrmPrincipal extends JFrame {
 
         acciones.add(new Accion(1111, TipoAccion.A, 150, 200));
         acciones.add(new Accion(2222, TipoAccion.B, 180, 300));
+
+        fondo.setMonto(1000000);
 
         frame.setVisible(true);
     }

@@ -32,7 +32,10 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <editable value="false"/>
+          <toolTipText value="ID de 4 digitos"/>
+        </properties>
       </component>
       <component id="da24d" class="javax.swing.JTextField" binding="tbBancoPrestamista">
         <constraints>
@@ -64,7 +67,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <toolTipText value="La tasa no puede ser mayor a 1"/>
+        </properties>
       </component>
       <component id="a1117" class="javax.swing.JTextField" binding="tbImporteTotal">
         <constraints>
@@ -124,7 +129,7 @@
             <item value="ALEMÁN"/>
             <item value="AMERICANO"/>
           </model>
-          <selectedIndex value="0"/>
+          <selectedIndex value="-1"/>
         </properties>
       </component>
       <component id="350c3" class="javax.swing.JLabel">

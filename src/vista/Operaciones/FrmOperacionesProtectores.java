@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static vista.FrmPrincipal.aportes;
+
 public class FrmOperacionesProtectores extends JDialog{
     private JPanel pnlPrincipal;
     private JButton btnAporte;
@@ -44,7 +46,13 @@ public class FrmOperacionesProtectores extends JDialog{
             @Override
             public void actionPerformed(ActionEvent e) {
                 FrmRetirar frame = new FrmRetirar(self, "Sistema de Gestion de Riesgo", cuit);
-                frame.setVisible(true);
+
+                if(aportes != null) {
+                    frame.setVisible(true);
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "No hay aportes realizados por este socio");
+                }
             }
         });
     }

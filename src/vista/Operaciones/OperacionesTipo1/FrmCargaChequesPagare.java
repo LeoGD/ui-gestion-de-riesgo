@@ -1,15 +1,16 @@
 package vista.Operaciones.OperacionesTipo1;
 
-import modelo.*;
+import modelo.Classes.*;
+import modelo.Enum.EstadoComision;
+import modelo.Enum.EstadoOperacion;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import static vista.FrmPrincipal.*;
 
 public class FrmCargaChequesPagare extends  JDialog{
@@ -19,7 +20,11 @@ public class FrmCargaChequesPagare extends  JDialog{
     private JTextField tbNumero;
     private JButton btnEnviar;
     private JPanel pnlCargaChequesPagare;
+    private JTextField tbMontoCheque;
     private MercadoArgentinoValores MAV;
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+    private Calendar fecha = Calendar.getInstance();
+    private String formatedDate;
 
     public FrmCargaChequesPagare(Window owner, String titulo)
     {
@@ -31,6 +36,8 @@ public class FrmCargaChequesPagare extends  JDialog{
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         asociarEventos();
+
+        formatedDate = fecha.get(Calendar.DATE) + "/" + (fecha.get(Calendar.MONTH) + 1) + "/" + fecha.get(Calendar.YEAR);
     }
 
     private void asociarEventos(){
@@ -38,12 +45,16 @@ public class FrmCargaChequesPagare extends  JDialog{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                 Certificados certificado = null;
                 Socios socio = null;
+                boolean validacionFDR = false;
 
-                for(Socios item : socios){
-                    if(item.getCuit().equals(Long.parseLong(cadenaOperacion))){
+                if (Integer.parseInt(tbMontoCheque.getText()) > fondo.getMonto() * 0.05) {
+                    validacionFDR = true;
+                }
+
+                for (Socios item : socios) {
+                    if (item.getCuit().toString().equals(cadenaOperacion)) {
                         socio = item;
                     }
                 }
@@ -52,34 +63,58 @@ public class FrmCargaChequesPagare extends  JDialog{
                         contadorCertificados++
                 ));
 
-                for(Certificados item : certificados){
-                    if(item.getNumCertificado().equals(contadorCertificados)){
+                for (Certificados item : certificados) {
+                    if (item.getNumCertificado().equals(contadorCertificados)) {
                         certificado = item;
                     }
                 }
 
-                try {
+                if (!validacionFDR) {
                     cheques.add(new InformacionCheques(
                             Integer.parseInt(tbNumero.getText()),
                             tbBanco.getText(),
-                            formato.parse(date()),
-                            formato.parse(tbFechaVencimiento.getText()),
+                            formatedDate,
+                            tbFechaVencimiento.getText(),
                             Integer.parseInt(tbCuitFirmante.getText()),
                             EstadoOperacion.INGRESADO,
                             certificado,
-                            MAV
+                            MAV,
+                            0.03f,
+                            Integer.parseInt(tbMontoCheque.getText()),
+                            EstadoComision.Calculada,
+                            null
                     ));
-                } catch (ParseException parseException) {
-                    parseException.printStackTrace();
-                }
 
-                for(InformacionCheques item2 : cheques){
-                    if(item2.getNumDelCheque().equals(Integer.parseInt(tbNumero.getText()))){
-                        socio.setTramitecheque(item2);
-                        socio.getTramitecheque().setEstadoOperacion(EstadoOperacion.CON_CERTIFICADO_EMITIDO);
+                    for (InformacionCheques item2 : cheques) {
+                        if (item2.getNumDelCheque().equals(Integer.parseInt(tbNumero.getText()))) {
+                            socio.setTramitecheque(item2);
+                            socio.getTramitecheque().setEstadoOperacion(EstadoOperacion.CON_CERTIFICADO_EMITIDO);
+                            socio.getTramitecheque().setEstadoOperacion(EstadoOperacion.MONETIZADO);
+                            socio.getTramitecheque().setEstadocomision(EstadoComision.Facturada);
+
+                            contadorfactura++;
+
+                            socio.getTramitecheque().setFactura(new Factura(contadorfactura));
+
+                            if (socio.getTramitecheque().getEstadoOperacion().equals(EstadoOperacion.MONETIZADO)) {
+                                riesgovivo.setMonto(riesgovivo.getMonto() + socio.getTramitecheque().getMontoCheque());
+                            }
+                        }
                     }
+
+                    JOptionPane.showMessageDialog(null, "Se realizó con exito la operacion");
+
+                    tbNumero.setText("");
+                    tbMontoCheque.setText("");
+                    tbFechaVencimiento.setText("");
+                    tbBanco.setText("");
+                    tbCuitFirmante.setText("");
                 }
-                JOptionPane.showMessageDialog(null, "Se realizó con exito la operacion");
+                else if(validacionFDR){
+                    JOptionPane.showMessageDialog(null, "No es posible operar con montos mayores al 5% del fondo de riesgo");
+
+                    tbMontoCheque.setText("");
+                }
             }
         });
     }

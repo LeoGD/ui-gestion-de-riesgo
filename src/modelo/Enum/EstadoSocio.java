@@ -1,0 +1,10 @@
+package modelo.Enum;
+/**
+ * 
+ */
+public enum EstadoSocio {
+    POSTULANTE_A_SOCIO_PARTICIPE,
+    POSTULANTE_A_SOCIO_PROTECTOR,
+    SOCIO_PLENO_PARTICIPE,
+    SOCIO_PLENO_PROTECTOR
+}

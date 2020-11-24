@@ -1,16 +1,20 @@
 package vista.Socios.MenuSocios;
 
-import modelo.*;
+import modelo.Classes.Accion;
+import modelo.Classes.Accionista;
+import modelo.Classes.Socios;
+import modelo.Enum.EstadoSocio;
+import modelo.Enum.TipoAccion;
+import modelo.Enum.TipoEmpresa;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
-import static vista.FrmPrincipal.acciones;
-import static vista.FrmPrincipal.socios;
+import static vista.FrmPrincipal.*;
 
 public class FrmCargarSocios extends JDialog{
     private JPanel pnlCargaSocios;
@@ -25,6 +29,9 @@ public class FrmCargarSocios extends JDialog{
     private JTextField tbCorreo;
     private JTextField tbFecha;
     private JComboBox cbEstadoSocio;
+    private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+    private Calendar fecha = Calendar.getInstance();
+    private String formatedDate;
 
     public FrmCargarSocios(Window owner, String titulo)
     {
@@ -38,6 +45,10 @@ public class FrmCargarSocios extends JDialog{
         asociarEventos();
 
         //this.self = this;
+
+        tbsocioID.setText(String.valueOf(IDSocio));
+        formatedDate = fecha.get(Calendar.DATE) + "/" + (fecha.get(Calendar.MONTH) + 1) + "/" + fecha.get(Calendar.YEAR);
+        tbFecha.setText(formatedDate);
     }
 
     private void asociarEventos()
@@ -46,13 +57,22 @@ public class FrmCargarSocios extends JDialog{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
                 boolean validacion = false;
+                boolean validacionAccionista = false;
                 Accion accion = null;
 
                 for(Socios item : socios){
-                    if(item.getCuit().equals(Long.parseLong(tbCUIT.getText())) || item.getCuit().equals(Long.parseLong(tbCUIT.getText()))){
+                    if(item.getCuit().equals(Long.parseLong(tbCUIT.getText()))){
                         validacion = true;
+                    }
+                    else{
+                        for(Accionista item2 : accionistas){
+                            if(cbEstadoSocio.getSelectedItem().equals(String.valueOf(EstadoSocio.POSTULANTE_A_SOCIO_PROTECTOR))) {
+                                if (item2.getCuitAccionista().toString().equals(tbCUIT.getText()) && item.getEstado().equals(EstadoSocio.SOCIO_PLENO_PARTICIPE))
+                                    validacionAccionista = true;
+                            }
+                        }
                     }
                 }
 
@@ -65,36 +85,34 @@ public class FrmCargarSocios extends JDialog{
                     }
                 }
 
-                if(!validacion) {
+                if(!validacion && !validacionAccionista) {
 
-                    try {
-                        socios.add(new Socios(
-                                Integer.parseInt(tbsocioID.getText()),
-                                EstadoSocio.valueOf(cbEstadoSocio.getSelectedItem().toString()),
-                                Long.parseLong(tbCUIT.getText()),
-                                tbRazonSocial.getText(),
-                                formato.parse(tbFecha.getText()),
-                                TipoEmpresa.valueOf(cbTipoEmpresa.getSelectedItem().toString()),
-                                tbActividad.getText(),
-                                tbDireccion.getText(),
-                                Long.parseLong(tbTelefono.getText()),
-                                tbCorreo.getText(),
-                                null,
-                                null,
-                                null,
-                                accion,
-                                null,
-                                null,
-                                null,
-                                null
-                        ));
-                    } catch (ParseException parseException) {
-                        parseException.printStackTrace();
-                    }
+                    socios.add(new Socios(
+                            Integer.parseInt(tbsocioID.getText()),
+                            EstadoSocio.valueOf(cbEstadoSocio.getSelectedItem().toString()),
+                            Long.parseLong(tbCUIT.getText()),
+                            tbRazonSocial.getText(),
+                            tbFecha.getText(),
+                            TipoEmpresa.valueOf(cbTipoEmpresa.getSelectedItem().toString()),
+                            tbActividad.getText(),
+                            tbDireccion.getText(),
+                            Long.parseLong(tbTelefono.getText()),
+                            tbCorreo.getText(),
+                            null,
+                            null,
+                            null,
+                            accion,
+                            null,
+                            null,
+                            null,
+                            null
+                    ));
 
                     JOptionPane.showMessageDialog(null, "Se dio de alta exitosamente el socio");
 
-                    tbsocioID.setText("");
+                    IDSocio = IDSocio + 1111;
+
+                    tbsocioID.setText(IDSocio.toString());
                     tbCUIT.setText("");
                     tbRazonSocial.setText("");
                     cbTipoEmpresa.setSelectedIndex(-1);
@@ -106,11 +124,24 @@ public class FrmCargarSocios extends JDialog{
                     cbEstadoSocio.setSelectedIndex(-1);
 
                 }
-                else {
+                else if (validacion == true && !validacionAccionista){
                     JOptionPane.showMessageDialog(null, "El IDSocio/CUIT ya fue ingresado anteriormente");
 
-                    tbsocioID.setText("");
                     tbCUIT.setText("");
+                }
+                else if(!validacion && validacionAccionista){
+                    JOptionPane.showMessageDialog(null, "El Socio ingresado es accionista de una empresa socia participe");
+
+                    tbsocioID.setText(IDSocio.toString());
+                    tbCUIT.setText("");
+                    tbRazonSocial.setText("");
+                    cbTipoEmpresa.setSelectedIndex(-1);
+                    tbActividad.setText("");
+                    tbDireccion.setText("");
+                    tbTelefono.setText("");
+                    tbCorreo.setText("");
+                    tbFecha.setText("");
+                    cbEstadoSocio.setSelectedIndex(-1);
                 }
             }
         });

@@ -1,6 +1,11 @@
 package controlador;
 
-import modelo.*;
+import modelo.Classes.DatosConsulta;
+import modelo.Classes.LineaDeCredito;
+import modelo.Classes.Operacion;
+import modelo.Classes.Socios;
+import modelo.Enum.TipoEmpresa;
+import modelo.Enum.TipoOperacion;
 
 import java.util.*;
 
@@ -13,23 +18,24 @@ public class SociosController {
     public SociosController() {
     }
 
+    public List<Operacion> operacionesAvaladas(Long CUIT, String fchDesde, String fchHasta) {
 
-    public void abm() {
-        // TODO implement here
-    }
-
-    public List<Operacion> operacionesAvaladas(Long CUIT, Date fchDesde, Date fchHasta) {
-        // TODO implement here
         List<Operacion> operacionesAvaladas = new ArrayList<Operacion>();
+        Integer contador = 0;
 
         for(Socios item : socios) {
             if (CUIT.equals(item.getCuit())) {
-                for (LineaDeCredito item2 : item.getLinea()) {
-                    if(item2.getTipoOperaciones().getEstadoOperacion().equals(EstadoOperacion.MONETIZADO)){
-                        operacionesAvaladas.add(item2.getTipoOperaciones());
-                    }
+
+                if(item.getLinea().get(contador).getTipoOperaciones().getTipoOperacion().equals(TipoOperacion.UNO)){
+                    operacionesAvaladas.add(item.getLinea().get(contador).getTipoOperaciones());
                 }
-                break;
+                else if(item.getLinea().get(contador).getTipoOperaciones().getTipoOperacion().equals(TipoOperacion.DOS)){
+                    operacionesAvaladas.add(item.getLinea().get(contador).getTipoOperaciones());
+                }
+                else if(item.getLinea().get(contador).getTipoOperaciones().getTipoOperacion().equals(TipoOperacion.TRES)){
+                    operacionesAvaladas.add(item.getLinea().get(contador).getTipoOperaciones());
+                }
+                contador++;
             }
         }
 
@@ -48,6 +54,9 @@ public class SociosController {
                 }
             }
         }
+
+        consulta.setUtilizadoDeLinea(acumuladoTotalUtilizado);
+
         return consulta;
     }
 

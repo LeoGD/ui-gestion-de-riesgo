@@ -31,14 +31,6 @@
         <border type="none"/>
         <children/>
       </grid>
-      <component id="1ba9e" class="javax.swing.JTextField" binding="tbCUIT">
-        <constraints>
-          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties/>
-      </component>
       <component id="6d199" class="javax.swing.JButton" binding="btnConsulta">
         <constraints>
           <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -159,6 +151,12 @@
         <border type="none"/>
         <children/>
       </grid>
+      <component id="ac187" class="javax.swing.JComboBox" binding="cbCUIT">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+      </component>
     </children>
   </grid>
 </form>

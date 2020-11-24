@@ -1,8 +1,8 @@
 package vista.Socios;
 
-import modelo.Accion;
-import modelo.EstadoSocio;
-import modelo.Socios;
+import modelo.Classes.Cambios;
+import modelo.Enum.EstadoSocio;
+import modelo.Classes.Socios;
 import vista.Socios.MenuSocios.FrmCargarAccionistas;
 import vista.Socios.MenuSocios.FrmCargarDocumentos;
 import vista.Socios.MenuSocios.FrmCargarSocios;
@@ -11,7 +11,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 
+import static vista.FrmPrincipal.contadorCambio;
 import static vista.FrmPrincipal.socios;
 
 public class FrmSocios extends JDialog{
@@ -24,6 +26,7 @@ public class FrmSocios extends JDialog{
     public static String cadenaAccionista;
     public static String cadenaDocumento;
     public static String cadenaSuscripcion;
+    private Calendar fecha = Calendar.getInstance();
 
 
     private FrmSocios self;
@@ -111,48 +114,65 @@ public class FrmSocios extends JDialog{
                 cadenaSuscripcion = JOptionPane.showInputDialog("Ingrese el CUIT del socio:");
 
                 for(Socios item : socios){
-                    if(Long.parseLong(cadenaAccionista) == item.getCuit() && item.getEstado() == EstadoSocio.POSTULANTE_A_SOCIO_PARTICIPE)
-                    {
-                        String cadenaAcciones = JOptionPane.showInputDialog("Cuantas acciones tipo A desea vender? ");
-                        Integer cantidadAccionesTipoA = Integer.parseInt(cadenaAcciones);
 
-                        if(cantidadAccionesTipoA != null) {
+                    if (Long.parseLong(cadenaAccionista) == item.getCuit() && item.getEstado() == EstadoSocio.POSTULANTE_A_SOCIO_PARTICIPE) {
+
+                        if (item.getAccionistas() == null || item.getDocumentos() == null) {
+
+                            String cadenaAcciones = JOptionPane.showInputDialog("Cuantas acciones tipo A desea vender? ");
+                            Integer cantidadAccionesTipoA = Integer.parseInt(cadenaAcciones);
+
+                            if (cantidadAccionesTipoA != null) {
 
 
-                            item.getAcciones().setCantidad(item.getAcciones().getCantidad() - cantidadAccionesTipoA);
+                                item.getAcciones().setCantidad(item.getAcciones().getCantidad() - cantidadAccionesTipoA);
 
-                            item.setEstado(EstadoSocio.SOCIO_PLENO_PARTICIPE);
+                                item.setEstado(EstadoSocio.SOCIO_PLENO_PARTICIPE);
 
-                            JOptionPane.showMessageDialog(null, "Se vendieron exitosamente las acciones. El socio se convirtio en " + item.getEstado());
-                        }
-                        else{
-                            if(item.getAcciones().getCantidad() < cantidadAccionesTipoA){
-                                JOptionPane.showMessageDialog(null, "No es posible realizar la suscripcion ya que no hay suficientes acciones para vender");
+                                Cambios cambioEstadoOperacion = new Cambios(
+                                        contadorCambio++,
+                                        fecha.getTime(),
+                                        String.valueOf(EstadoSocio.POSTULANTE_A_SOCIO_PARTICIPE),
+                                        item.getEstado().toString(),
+                                        "En Socios",
+                                        ""
+                                );
+
+                                JOptionPane.showMessageDialog(null, "Se vendieron exitosamente las acciones. El socio se convirtio en " + item.getEstado());
+                            } else {
+                                if (item.getAcciones().getCantidad() < cantidadAccionesTipoA) {
+                                    JOptionPane.showMessageDialog(null, "No es posible realizar la suscripcion ya que no hay suficientes acciones para vender");
+                                }
                             }
+                            break;
                         }
-                        break;
-                    }
-                    else if(Long.parseLong(cadenaAccionista) == item.getCuit() && item.getEstado() == EstadoSocio.POSTULANTE_A_SOCIO_PROTECTOR)
-                    {
+                    } else if (Long.parseLong(cadenaAccionista) == item.getCuit() && item.getEstado() == EstadoSocio.POSTULANTE_A_SOCIO_PROTECTOR) {
                         String cadenaAcciones = JOptionPane.showInputDialog("Cuantas acciones tipo B desea vender? ");
                         Integer cantidadAccionesTipoB = Integer.parseInt(cadenaAcciones);
 
-                        if(cantidadAccionesTipoB != null) {
+                        if (cantidadAccionesTipoB != null) {
 
                             item.getAcciones().setCantidad(item.getAcciones().getCantidad() - cantidadAccionesTipoB);
 
                             item.setEstado(EstadoSocio.SOCIO_PLENO_PROTECTOR);
 
+                            Cambios cambioEstadoOperacion = new Cambios(
+                                    contadorCambio++,
+                                    fecha.getTime(),
+                                    String.valueOf(EstadoSocio.POSTULANTE_A_SOCIO_PROTECTOR),
+                                    item.getEstado().toString(),
+                                    "En Socios",
+                                    ""
+                            );
+
                             JOptionPane.showMessageDialog(null, "Se vendieron exitosamente las acciones. El socio se convirtio en " + item.getEstado());
-                        }
-                        else{
-                            if(item.getAcciones().getCantidad() < cantidadAccionesTipoB){
+                        } else {
+                            if (item.getAcciones().getCantidad() < cantidadAccionesTipoB) {
                                 JOptionPane.showMessageDialog(null, "No es posible realizar la suscripcion ya que no hay suficientes acciones para vender");
                             }
                         }
                         break;
-                    }
-                    else{
+                    } else {
                         JOptionPane.showMessageDialog(null, "No se encontro el socio ingresado");
                         break;
                     }

@@ -1,10 +1,9 @@
 package controlador;
 
-import modelo.EstadoOperacion;
-import modelo.InformacionCheques;
-import modelo.Operacion;
-import modelo.TipoOperacion;
-import java.util.*;
+import modelo.Enum.EstadoOperacion;
+import modelo.Classes.InformacionCheques;
+import modelo.Classes.Operacion;
+import modelo.Enum.TipoOperacion;
 
 import static vista.FrmPrincipal.cheques;
 import static vista.FrmPrincipal.operaciones;
@@ -16,32 +15,30 @@ public class OperacionController {
     public OperacionController() {
     }
 
+    public Integer totalComisionesDiarias(String fechaIngresada) {
 
-    public void abm() {
-        // TODO implement here
-    }
+        Integer cantidad = 0;
 
-    public Integer totalComisionesDiarias(Date fechaIngresada) {
-        for(Operacion item : operaciones){
-            if(item.getEstadoOperacion().equals(EstadoOperacion.MONETIZADO)){
-                for(InformacionCheques item2 : cheques){
-                    // TODO if(fechaIngresada.equals(item2.)){
-                    // TODO implement here
-                    // TODO }
-                }
+        for(InformacionCheques item : cheques){
+            if(item.getEstadoOperacion().equals(EstadoOperacion.MONETIZADO) && item.getFchOperacion().equals(fechaIngresada)){
+                cantidad++;
             }
         }
-        // TODO implement here
-        return 0;
+
+        return cantidad;
     }
 
     public float calcularComision(TipoOperacion tipo) {
+
+        float valor = 0;
+
         for(Operacion item : operaciones){
             if(item.getTipoOperacion().equals(tipo)){
-                return item.getPorcentajeComision();
+                valor = item.getPorcentajeComision();
             }
         }
-        return 0;
+
+        return valor;
     }
 
 }

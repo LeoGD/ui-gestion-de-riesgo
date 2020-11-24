@@ -10,7 +10,7 @@ import controlador.OperacionController;
 
 public class FrmInternalConsulta1 extends JInternalFrame{
 
-    private OperacionController controladorOperador;
+    private OperacionController controladorOperador = new OperacionController();
     private JPanel pnlPrincipal;
     private JTextField tbFechaIngresada;
     private JButton btnConsultar;
@@ -30,14 +30,10 @@ public class FrmInternalConsulta1 extends JInternalFrame{
         btnConsultar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
                 Integer valor = 0;
 
-                try {
-                   valor = controladorOperador.totalComisionesDiarias(formato.parse(tbFechaIngresada.getText()));
-                } catch (ParseException parseException) {
-                    parseException.printStackTrace();
-                }
+                valor = controladorOperador.totalComisionesDiarias(tbFechaIngresada.getText());
 
                 tbTotal.setText(valor.toString());
             }

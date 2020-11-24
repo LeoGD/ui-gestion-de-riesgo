@@ -1,22 +1,26 @@
 package vista.LineaDeCredito;
 
-import modelo.*;
+import modelo.Classes.Cambios;
+import modelo.Classes.LineaDeCredito;
+import modelo.Classes.Socios;
+import modelo.Enum.EstadoSocio;
+import modelo.Enum.NombreOperacion;
+import modelo.Enum.TipoOperacion;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 
-import static vista.FrmPrincipal.lineas1;
-import static vista.FrmPrincipal.lineas2;
-import static vista.FrmPrincipal.lineas3;
-import static vista.FrmPrincipal.socios;
+import static vista.FrmPrincipal.*;
 
 public class FrmLineas extends  JDialog{
 
     private JPanel pnlPrincipal;
     private JButton btnAsignarSocio;
     private JButton btnAprobar;
+    private Calendar fecha = Calendar.getInstance();
 
     public FrmLineas(Window owner, String titulo)
     {
@@ -77,10 +81,19 @@ public class FrmLineas extends  JDialog{
                 String cadenaAprobacion = JOptionPane.showInputDialog(null, "Ingrese el CUIT del socio: ");
 
                 for(Socios item : socios){
-                    if(cadenaAprobacion.equals(item.getCuit())){
+                    if(item.getCuit().toString().equals(cadenaAprobacion)){
 
                         for(LineaDeCredito item2 : item.getLinea()){
                             item2.setEstado("Aprobada");
+
+                            Cambios cambioEstadoOperacion = new Cambios(
+                                    contadorCambio++,
+                                    fecha.getTime(),
+                                    "Vigente",
+                                    item2.getEstado(),
+                                    "En Linea de Credito",
+                                    ""
+                            );
                         }
                     }
                 }

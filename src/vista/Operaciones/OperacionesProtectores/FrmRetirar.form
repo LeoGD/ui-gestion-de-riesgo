@@ -28,7 +28,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <editable value="false"/>
+        </properties>
       </component>
       <component id="dd527" class="javax.swing.JTextField" binding="tbMontoRetiro">
         <constraints>
@@ -36,7 +38,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <editable value="false"/>
+        </properties>
       </component>
       <component id="447bf" class="javax.swing.JLabel">
         <constraints>

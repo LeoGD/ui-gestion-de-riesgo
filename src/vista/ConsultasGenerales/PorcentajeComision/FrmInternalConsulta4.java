@@ -1,8 +1,7 @@
 package vista.ConsultasGenerales.PorcentajeComision;
 
 import controlador.OperacionController;
-import modelo.TipoEmpresa;
-import modelo.TipoOperacion;
+import modelo.Enum.TipoOperacion;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class FrmInternalConsulta4 extends JInternalFrame{
 
-    private OperacionController operacionControlador;
+    private OperacionController operacionControlador = new OperacionController();
     private JPanel pnlPrincipal;
     private JComboBox cbTipoOperacion;
     private JTextField tbPorcentajeComision;
@@ -32,7 +31,7 @@ public class FrmInternalConsulta4 extends JInternalFrame{
             public void actionPerformed(ActionEvent e) {
                 float valor = 0;
 
-                valor = operacionControlador.calcularComision(TipoOperacion.valueOf(cbTipoOperacion.getSelectedItem().toString()));
+                valor = operacionControlador.calcularComision(TipoOperacion.valueOf(String.valueOf(cbTipoOperacion.getSelectedItem())));
 
                 tbPorcentajeComision.setText(String.valueOf(valor));
             }

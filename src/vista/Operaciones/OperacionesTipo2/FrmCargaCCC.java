@@ -1,13 +1,18 @@
 package vista.Operaciones.OperacionesTipo2;
 
-import modelo.*;
+import modelo.Classes.Certificados;
+import modelo.Classes.Factura;
+import modelo.Classes.InformacionCuentasCorrientesComerciales;
+import modelo.Classes.Socios;
+import modelo.Enum.EstadoComision;
+import modelo.Enum.EstadoOperacion;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import static vista.FrmPrincipal.*;
@@ -19,6 +24,8 @@ public class FrmCargaCCC extends JDialog{
     private JTextField tbEmpresaCC;
     private JButton btnEnviar;
     private JPanel pnlCargaCCC;
+    private String formatedDate;
+    private Calendar fecha = Calendar.getInstance();
 
     public FrmCargaCCC(Window owner, String titulo)
     {
@@ -30,6 +37,9 @@ public class FrmCargaCCC extends JDialog{
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         asociarEventos();
+
+        tbCCCID.setText(IDCuentaCorriente.toString());
+        formatedDate = fecha.get(Calendar.DATE) + "/" + (fecha.get(Calendar.MONTH) + 1) + "/" + fecha.get(Calendar.YEAR);
     }
 
     private void asociarEventos(){
@@ -40,9 +50,14 @@ public class FrmCargaCCC extends JDialog{
                 SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                 Certificados certificado = null;
                 Socios socio = null;
+                boolean validacionFDR = false;
 
-                for(Socios item : socios){
-                    if(item.getCuit().equals(Long.parseLong(cadenaOperacion))){
+                if (Integer.parseInt(tbImporteTotal.getText()) > fondo.getMonto() * 0.05) {
+                    validacionFDR = true;
+                }
+
+                for (Socios item : socios) {
+                    if (item.getCuit().toString().equals(cadenaOperacion)) {
                         socio = item;
                     }
                 }
@@ -51,34 +66,56 @@ public class FrmCargaCCC extends JDialog{
                         contadorCertificados++
                 ));
 
-                for(Certificados item : certificados){
-                    if(item.getNumCertificado().equals(contadorCertificados)){
+                for (Certificados item : certificados) {
+                    if (item.getNumCertificado().equals(contadorCertificados)) {
                         certificado = item;
                     }
                 }
 
-                try {
+                if (!validacionFDR) {
                     CCC.add(new InformacionCuentasCorrientesComerciales(
                             Integer.parseInt(tbCCCID.getText()),
                             tbEmpresaCC.getText(),
                             Integer.parseInt(tbImporteTotal.getText()),
-                            formato.parse(date()),
-                            formato.parse(tbFechaVencimiento.getText()),
+                            formatedDate,
+                            tbFechaVencimiento.getText(),
                             EstadoOperacion.INGRESADO,
-                            certificado
+                            certificado,
+                            0.03f,
+                            EstadoComision.Calculada,
+                            null
                     ));
-                } catch (ParseException parseException) {
-                    parseException.printStackTrace();
-                }
 
-                for(InformacionCuentasCorrientesComerciales item2 : CCC){
-                    if(item2.getInformacionCCCID().equals(Integer.parseInt(tbCCCID.getText()))){
-                        socio.setTramiteCCC(item2);
-                        socio.getTramiteCCC().setEstadoOperacion(EstadoOperacion.CON_CERTIFICADO_EMITIDO);
+                    for (InformacionCuentasCorrientesComerciales item2 : CCC) {
+                        if (item2.getInformacionCCCID().equals(Integer.parseInt(tbCCCID.getText()))) {
+                            socio.setTramiteCCC(item2);
+                            socio.getTramiteCCC().setEstadoOperacion(EstadoOperacion.CON_CERTIFICADO_EMITIDO);
+                            socio.getTramiteCCC().setEstadoOperacion(EstadoOperacion.MONETIZADO);
+
+                            contadorfactura++;
+
+                            socio.getTramiteCCC().setFactura(new Factura(contadorfactura));
+
+                            if(socio.getTramiteCCC().getEstadoOperacion().equals(EstadoOperacion.MONETIZADO)){
+                                riesgovivo.setMonto(riesgovivo.getMonto() + socio.getTramiteCCC().getImporteTotal());
+                            }
+                        }
                     }
-                }
 
-                JOptionPane.showMessageDialog(null, "Se realizó con exito la operacion");
+                    JOptionPane.showMessageDialog(null, "Se realizó con exito la operacion");
+
+                    IDCuentaCorriente = IDCuentaCorriente + 1111;
+
+                    tbCCCID.setText(IDCuentaCorriente.toString());
+                    tbFechaVencimiento.setText("");
+                    tbEmpresaCC.setText("");
+                    tbImporteTotal.setText("");
+                }
+                else if(validacionFDR){
+                    JOptionPane.showMessageDialog(null, "No es posible operar con montos mayores al 5% del fondo de riesgo");
+
+                    tbImporteTotal.setText("");
+                }
             }
         });
     }

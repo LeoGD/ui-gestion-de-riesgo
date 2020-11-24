@@ -1,15 +1,17 @@
 package vista.Operaciones.OperacionesTipo3;
 
-import modelo.*;
+import modelo.Classes.*;
+import modelo.Enum.EstadoComision;
+import modelo.Enum.EstadoOperacion;
+import modelo.Enum.SistemaPrestamos;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import static vista.FrmPrincipal.*;
 
 public class FrmCargaPrestamos extends JDialog{
@@ -22,6 +24,8 @@ public class FrmCargaPrestamos extends JDialog{
     private JButton btnEnviar;
     private JComboBox cbSistema;
     private JPanel pnlCargaPrestamos;
+    private Calendar fecha = Calendar.getInstance();
+    private String formatedDate;
 
     public FrmCargaPrestamos(Window owner, String titulo)
     {
@@ -33,6 +37,9 @@ public class FrmCargaPrestamos extends JDialog{
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         asociarEventos();
+
+        tbPrestamoID.setText(IDPrestamo.toString());
+        formatedDate = fecha.get(Calendar.DATE) + "/" + (fecha.get(Calendar.MONTH) + 1) + "/" + fecha.get(Calendar.YEAR);
     }
 
     private void asociarEventos(){
@@ -43,9 +50,14 @@ public class FrmCargaPrestamos extends JDialog{
                 SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
                 Certificados certificado = null;
                 Socios socio = null;
+                boolean validacionFDR = false;
 
-                for(Socios item : socios){
-                    if(item.getCuit().equals(Long.parseLong(cadenaOperacion))){
+                if (Integer.parseInt(tbImporteTotal.getText()) > fondo.getMonto() * 0.05) {
+                    validacionFDR = true;
+                }
+
+                for (Socios item : socios) {
+                    if (item.getCuit().toString().equals(cadenaOperacion)) {
                         socio = item;
                     }
                 }
@@ -54,37 +66,89 @@ public class FrmCargaPrestamos extends JDialog{
                         contadorCertificados++
                 ));
 
-                for(Certificados item : certificados){
-                    if(item.getNumCertificado().equals(contadorCertificados)){
+                for (Certificados item : certificados) {
+                    if (item.getNumCertificado().equals(contadorCertificados)) {
                         certificado = item;
                     }
                 }
 
-                try {
+                if (!validacionFDR) {
                     prestamos.add(new InformacionPrestamos(
                             Integer.parseInt(tbPrestamoID.getText()),
                             tbBancoPrestamista.getText(),
                             Integer.parseInt(tbImporteTotal.getText()),
                             Float.parseFloat(tbTasa.getText()),
-                            formato.parse(date()),
-                            formato.parse(tbFechaAcreditacion.getText()),
+                            formatedDate,
+                            tbFechaAcreditacion.getText(),
                             Integer.parseInt(tbCantidadCuotas.getText()),
                             SistemaPrestamos.valueOf(cbSistema.getSelectedItem().toString()),
                             EstadoOperacion.INGRESADO,
-                            certificado
+                            certificado,
+                            0.04f,
+                            EstadoComision.Calculada,
+                            null
                     ));
-                } catch (ParseException parseException) {
-                    parseException.printStackTrace();
-                }
 
-                for(InformacionPrestamos item2 : prestamos){
-                    if(item2.getInformacionPrestamoID().equals(Integer.parseInt(tbPrestamoID.getText()))){
-                        socio.setTramiteprestamo(item2);
-                        socio.getTramiteprestamo().setEstadoOperacion(EstadoOperacion.CON_CERTIFICADO_EMITIDO);
+                    for (InformacionPrestamos item2 : prestamos) {
+                        if (item2.getInformacionPrestamoID().equals(Integer.parseInt(tbPrestamoID.getText()))) {
+                            socio.setTramiteprestamo(item2);
+                            socio.getTramiteprestamo().setEstadoOperacion(EstadoOperacion.CON_CERTIFICADO_EMITIDO);
+
+                            Cambios cambioEstadoOperacion = new Cambios(
+                                    contadorCambio++,
+                                    fecha.getTime(),
+                                    String.valueOf(EstadoOperacion.INGRESADO),
+                                    socio.getTramiteprestamo().getEstadoOperacion().toString(),
+                                    "En Operacion",
+                                    ""
+                            );
+
+                            socio.getTramiteprestamo().setEstadoOperacion(EstadoOperacion.MONETIZADO);
+
+
+                            Cambios cambioEstadoOperacion2 = new Cambios(
+                                    contadorCambio++,
+                                    fecha.getTime(),
+                                    String.valueOf(EstadoOperacion.CON_CERTIFICADO_EMITIDO),
+                                    socio.getTramiteprestamo().getEstadoOperacion().toString(),
+                                    "En Operacion",
+                                    ""
+                            );
+
+                            socio.getTramiteprestamo().setEstadocomision(EstadoComision.Facturada);
+
+                            Cambios cambioEstadoComision = new Cambios(
+                                    contadorCambio++,
+                                    fecha.getTime(),
+                                    String.valueOf(EstadoComision.Facturada),
+                                    socio.getTramiteprestamo().getEstadocomision().toString(),
+                                    "En Comision",
+                                    ""
+                            );
+
+                            contadorfactura++;
+
+                            socio.getTramiteprestamo().setFactura(new Factura(contadorfactura));
+                        }
                     }
-                }
 
-                JOptionPane.showMessageDialog(null, "Se realizó con exito la operacion");
+                    JOptionPane.showMessageDialog(null, "Se realizó con exito la operacion");
+
+                    IDPrestamo = IDPrestamo + 1111;
+
+                    tbPrestamoID.setText(IDPrestamo.toString());
+                    tbImporteTotal.setText("");
+                    tbCantidadCuotas.setText("");
+                    tbFechaAcreditacion.setText("");
+                    tbBancoPrestamista.setText("");
+                    tbTasa.setText("");
+                    cbSistema.setSelectedIndex(-1);
+                }
+                else if(validacionFDR) {
+                    JOptionPane.showMessageDialog(null, "No es posible operar con montos mayores al 5% del fondo de riesgo");
+
+                    tbImporteTotal.setText("");
+                }
             }
         });
     }

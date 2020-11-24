@@ -1,8 +1,8 @@
 package vista.ConsultasGenerales.Promedio;
 
 import controlador.SociosController;
-import modelo.DatosConsulta;
-import modelo.TipoEmpresa;
+import modelo.Classes.DatosConsulta;
+import modelo.Enum.TipoEmpresa;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 
 public class FrmInternalConsulta3 extends JInternalFrame{
 
-    private SociosController socioControlador;
+    private SociosController socioControlador = new SociosController();
     private JPanel pnlPrincipal;
     private JTextField tbFechaDesde;
     private JTextField tbFechaHasta;

@@ -1,27 +1,29 @@
 package vista.ConsultasGenerales.OperacionesAvaladas;
 
 import controlador.SociosController;
-import modelo.Operacion;
+import modelo.Classes.Operacion;
+import modelo.Classes.Socios;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
+
+import static vista.FrmPrincipal.socios;
 
 public class FrmInternalConsulta2 extends JInternalFrame{
 
-    private SociosController sociosControlador;
+    private SociosController sociosControlador = new SociosController();
     private JPanel pnlPrincipal;
-    private JTextField tbCUIT;
     private JTextField tbFechaHasta;
     private JTextField tbFechaDesde;
     private JButton btnConsulta;
     private JTable tOperacionesAvaladas;
-    private DefaultTableModel tableModel;
+    private JComboBox cbCUIT;
+    private DefaultTableModel tableModel = new DefaultTableModel();
+    private DefaultComboBoxModel model = new DefaultComboBoxModel();
+    private String[] nombresColumnas = {"Operacion", "Fecha Operacion"};
 
     public FrmInternalConsulta2(String titulo)
     {
@@ -31,6 +33,12 @@ public class FrmInternalConsulta2 extends JInternalFrame{
 
         this.setBorder(null);
         ((javax.swing.plaf.basic.BasicInternalFrameUI)this.getUI()).setNorthPane(null);
+
+        cbCUIT.setModel(model);
+
+        for (Socios item : socios) {
+            model.addElement(item.getCuit());
+        }
 
         this.tableModel = new DefaultTableModel(0, 2) {
             @Override
@@ -43,6 +51,7 @@ public class FrmInternalConsulta2 extends JInternalFrame{
         this.tableModel.addColumn("Fecha operacion");
 
         tOperacionesAvaladas.setModel(tableModel);
+
     }
 
     private void asociarEventos(){
@@ -51,6 +60,13 @@ public class FrmInternalConsulta2 extends JInternalFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                List<Operacion> consulta = null;
+
+                consulta = sociosControlador.operacionesAvaladas(Long.parseLong(cbCUIT.getSelectedItem().toString()), tbFechaDesde.getText(), tbFechaHasta.getText());
+
+                Object[][] data = {{"Kathy", "Smith"},{"John", "Doe"}};
+                tOperacionesAvaladas = new JTable(data, nombresColumnas);
+                tOperacionesAvaladas.setFillsViewportHeight(true);
             }
         });
     }

@@ -1,7 +1,7 @@
 package vista.Socios.MenuSocios;
 
-import modelo.Accionista;
-import modelo.Socios;
+import modelo.Classes.Accionista;
+import modelo.Classes.Socios;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +29,8 @@ public class FrmCargarAccionistas extends JDialog{
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         asociarEventos();
+
+        tbAccionistaID.setText(IDAccionista.toString());
     }
 
     private void asociarEventos()
@@ -39,36 +41,48 @@ public class FrmCargarAccionistas extends JDialog{
 
                 accionistas.clear();
 
-                accionistas.add(new Accionista(
-                        Integer.parseInt(tbAccionistaID.getText()),
-                        Long.parseLong(tbCUITAccionista.getText()),
-                        tbRazonSocial.getText(),
-                        Float.parseFloat(tbParticipacion.getText())
-                ));
+                boolean validacion = false;
 
-                for(Socios item : socios) {
-                    if(cadenaAccionista.equals(item.getCuit().toString())) {
-                        for (Accionista item2 : accionistas) {
+                for(Accionista item : accionistas){
+                    if(item.getAccionistaID().toString().equals(tbAccionistaID.getText()) || item.getCuitAccionista().equals(Long.parseLong(tbCUITAccionista.getText()))){
+                        validacion = true;
+                    }
+                }
 
-                            Integer valor = Integer.parseInt(tbAccionistaID.getText());
+                if(!validacion) {
+                    accionistas.add(new Accionista(
+                            Integer.parseInt(tbAccionistaID.getText()),
+                            Long.parseLong(tbCUITAccionista.getText()),
+                            tbRazonSocial.getText(),
+                            Float.parseFloat(tbParticipacion.getText())
+                    ));
 
-                            if(valor.equals(item2.getAccionistaID())){
+                    for (Socios item : socios) {
+                        if (cadenaAccionista.equals(item.getCuit().toString())) {
+                            for (Accionista item2 : accionistas) {
 
-                                item.setAccionistas(accionistas);
+                                Integer valor = Integer.parseInt(tbAccionistaID.getText());
 
-                                break;
+                                if (valor.equals(item2.getAccionistaID())) {
+
+                                    item.setAccionistas(accionistas);
+
+                                    break;
+                                }
                             }
                         }
+                        break;
                     }
-                    break;
                 }
 
                 JOptionPane.showMessageDialog(null, "Se dio de alta exitosamente el accionista");
 
+                IDAccionista = IDAccionista + 1111;
+
+                tbAccionistaID.setText(IDAccionista.toString());
                 tbCUITAccionista.setText("");
                 tbParticipacion.setText("");
                 tbRazonSocial.setText("");
-                tbAccionistaID.setText("");
             }
         });
     }

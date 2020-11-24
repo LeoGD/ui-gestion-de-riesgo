@@ -32,7 +32,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <toolTipText value="Favor de ingresar la fecha en el formato dd/mm/yyyy"/>
+        </properties>
       </component>
       <component id="5ee6b" class="javax.swing.JTextField" binding="tbImporteTotal">
         <constraints>
@@ -48,7 +50,10 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <editable value="false"/>
+          <toolTipText value="ID de 4 digitos"/>
+        </properties>
       </component>
       <component id="d33c2" class="javax.swing.JTextField" binding="tbEmpresaCC">
         <constraints>

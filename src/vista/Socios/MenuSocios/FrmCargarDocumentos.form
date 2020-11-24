@@ -14,7 +14,10 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <editable value="false"/>
+          <toolTipText value="ID de 4 digitos"/>
+        </properties>
       </component>
       <component id="fed29" class="javax.swing.JLabel">
         <constraints>
@@ -46,7 +49,9 @@
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <editable value="false"/>
+        </properties>
       </component>
       <component id="21458" class="javax.swing.JLabel">
         <constraints>
@@ -122,7 +127,7 @@
           <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Button"/>
+          <text value="Enviar"/>
         </properties>
       </component>
       <grid id="3c302" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
